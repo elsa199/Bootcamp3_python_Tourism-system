@@ -60,6 +60,9 @@ def __inputDeco(inpFunc):
                         check |= not key(out)
                         if check:
                             break
+                    except IndexError:
+                        check = True
+                        break
                     except:
                         print("Please use inp function correctly (use convert for numeric data).")
                         raise Exception("Error in using inp function.")
