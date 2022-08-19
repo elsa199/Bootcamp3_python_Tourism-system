@@ -1,8 +1,6 @@
-import os
 import sys
-from packages.tools.common import inp
-import json
-
+from packages.common.input import inp
+from packages.utils.register import register as __register
 def main(rerun = False):
     if rerun: sys.argv = ['']
     def __set_out(key, value):
@@ -51,8 +49,8 @@ def __checker():
 
 
 def __must():
-    t = inp('Which one are you (customer - admin - landlord - driver) or type "register"? please: ', 'Pick correctly: ',
-        key = lambda x: x in ['customer', 'admin', 'landlord', 'driver', 'register'])
+    t = inp('Which one are you (tourist - admin - landlord - driver) or type "register"? please: ', 'Pick correctly: ',
+        key = lambda x: x in ['tourist', 'admin', 'landlord', 'driver', 'register'])
     if t == 'register':
         temp = __register()
         return temp
@@ -63,29 +61,6 @@ def __must():
         'type': t,
         'password': p
     }
-def __register():
-    # Update and add to database
-    print('-=-=-=- We appritiate you joining us :) -=-=-=-')
-    t = inp('Which one are you (customer - admin - landlord - driver)? please: ', 'Pick correctly: ',
-        key = lambda x: x in ['customer', 'admin', 'landlord', 'driver'])
-    u = inp('Please enter your username: ', 'Must has atleast 3 characters: ', key = lambda el: len(el) >= 3)
-    p = inp('Please enter your password: ', 'Must has atleast 8 characters: ', key = lambda el: len(el) >= 8)
-    inp('Please enter your password again: ', 'Passwords must match: ', key=lambda x: x == p)
-    __update_data({'username': u,'password': p}, t)
-    return {
-        'username': u,
-        'type': t,
-        'password': p
-    }
-
-
-def __update_data(new_user, t):
-    if t == 'customer':
-        with open("./data/customers.json", "r") as jsonFile:
-            data = json.load(jsonFile)
-        data.append(new_user)
-        with open("./data/customers.json", "w") as jsonFile:
-            json.dump(data, jsonFile)
 
 
 

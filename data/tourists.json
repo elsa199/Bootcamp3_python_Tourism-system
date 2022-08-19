@@ -1,0 +1,17 @@
+[
+    {
+        "username": "hamed",
+        "password": "1",
+        "national_id": "1171171177",
+        "tel": "09130111591",
+        "account": {
+            "account_id": "0123456789"
+        },
+        "active_services": [
+            {
+                "samlpeId": "alskghdsdv"
+            }
+        ],
+        "travels": []
+    }
+]

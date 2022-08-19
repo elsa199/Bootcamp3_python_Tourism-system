@@ -1,18 +1,17 @@
-from data.points import cities, distances
-from packages.tools.common import inp
+global relogin
+relogin = False
+from packages.tourist.Class import Tourist
 from packages.utils.env import main as initialize
+from packages.utils.login import login
 print('---------------------------------------------------------------------')
 print('                     Wellcome to our program                         ')
 print('         When ever you wanted to cancel use-> Ctrl + c + Enter       ')
 print('---------------------------------------------------------------------\n')
 
+while True:
+    inputs = initialize()
+    user = login(inputs)
 
-inputs = initialize()
-
-
-
-
-if inputs['type'] == 'customer':
-    from packages.routes.customer import main as customer_route, login
-    inputs = login(inputs)
-    customer_route(cities, distances, ['travel'])
+    if isinstance(user, Tourist):
+        from packages.tourist.main import main as tourist_route
+        tourist_route(['travel', 'relogin'], user)
