@@ -2,7 +2,6 @@ import numpy as np
 from numpy import array as Array
 from sko.GA import GA_TSP as __GA_TSP
 from packages.tools.swap import swap
-from sko.tools import set_run_mode
 
 
 

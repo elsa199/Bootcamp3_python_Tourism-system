@@ -19,7 +19,6 @@ def main(rerun = False):
                     print('when using enviromental variables, use three "type", "username" and "password" together.')
                     login__checker = False
                     continue
-        print(__ok)
         return out
 
 def __do_on_args(arg_list, exp_list, func_list):
