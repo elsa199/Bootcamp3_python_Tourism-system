@@ -1,28 +1,30 @@
 from data.points import cities, distances
-from tools.common import inp
-from tools.ga import ga
+from packages.tools.common import inp
+from packages.utils.env import main as initialize
+import json
+import pandas as pd
 print('---------------------------------------------------------------------')
 print('                     Wellcome to our program                         ')
 print('         When ever you wanted to cancel use-> Ctrl + c + Enter       ')
 print('---------------------------------------------------------------------\n')
 
 
-print(*[f'{el}: {index + 1}' for index, el in enumerate(cities)], sep=" -=- ")
+inputs = initialize()
 
-start = inp(
-    "First please enter city code in which you are living or leaving: ",
-    f"Please enter a valid number between 1 and {len(cities)}: ",
-    convert=int,
-    key=lambda el: el > 0 and el <= len(cities)
-)
 
-trip = inp(
-    'Please enter your visiting cities as a sequence (e.g. 1 2 3): ',
-    f'Please enter a valid sequence of numbers between 1 and {len(cities)}, also dont enter your start city as first destination: ',
-    convert=lambda Ls: [int(el) for el in Ls.split()],
-    key=lambda L: L[0] != start
-)
 
-[trip, best_distance] = ga(cities, distances, trip, start)
 
-print(trip, best_distance)
+if inputs['type'] == 'customer':
+    fObj = open("./data/customers.json")
+    jdict = json.load(fObj)
+    customers = pd.json_normalize(jdict)
+    while True:
+        # Check username and password initialize(True)
+        if (inputs['username'] in customers.username.tolist() and inputs['password'] in customers.password.tolist()):
+            break
+        else:
+            print("***************\nWrong username and password. Please try again.\n***************\n")
+            inputs = initialize(True)
+    from packages.routes.customer import main as customer_route
+    [trip, best_distance] = customer_route(cities, distances)
+    print(trip, best_distance)
