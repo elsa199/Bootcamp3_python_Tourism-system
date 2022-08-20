@@ -3,7 +3,6 @@ import pandas as pd
 from packages.common.input import inp
 
 cities = [el[0] for el in pd.read_csv('./data/cities.csv', header=None).values.tolist()]
-print(cities)
 # cities = [
 #     'Tehran',  # 1
 #     'Mashhad', # 2

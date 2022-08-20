@@ -7,9 +7,9 @@ def main(commands: list, tourist):
     while not relogin:
         command = inp('', '\t\t***Wrong Command***\n', key = [lambda el: el in commands[0]])
         if command == 'travel':
-            [trip, best_distance] = tourist.travel()
-            print(f'Your route is -> {trip}')
-            print(f'Your total route length would be -> {best_distance}', end='\nDone!\n\n')
+            tourist.travel()
+            # print(f'Your route is -> {trip}')
+            # print(f'Your total route length would be -> {best_distance}', end='\nDone!\n\n')
             continue
         elif command == 'profile':
             # Show tourist data

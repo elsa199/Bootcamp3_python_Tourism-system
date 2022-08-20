@@ -1,5 +1,5 @@
 import numpy as np
-
+from packages.common.clear import clear_console
 from packages.tourist.ga import ga
 from packages.common.input import inp
 from packages.tourist.functions import start_finder
@@ -30,19 +30,16 @@ class Tourist():
         from data.points import cities, distances
         print('\n')
         print(*[f'{el}: {index + 1}' for index, el in enumerate(cities)], sep=" -=- ", end='\n\n')
-
-        
         start, cities, distances = start_finder(self['address'], cities, distances)
-
         trip = inp(
             'Please enter your visiting cities as a sequence (e.g. 1 2 3): ',
             f'Please enter a valid sequence of numbers between 1 and {len(cities)}, also dont enter your start city: ',
             convert=lambda Ls: [int(el) for el in Ls.split()],
             key=lambda L: True if sum([1 if el != start else 0 for el in L]) == len(L) else False
         )
-
-        
         trip, best_distance = ga(cities, distances, trip, start)
         trip = [cities[el - 1] for el in trip]
+
+        clear_console()
         return trip, best_distance
 

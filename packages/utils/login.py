@@ -17,7 +17,6 @@ def login(inputs):
                 break
             else: raise Exception('I')
         except Exception as e:
-            print('error ->', e)
             print("***************\nWrong username and password. Please try again.\n***************\n")
             inputs = initialize(True)
             continue

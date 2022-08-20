@@ -3,7 +3,7 @@ from data.points import update_pds
 
 def start_finder(address, cities, distances):
     try:
-        if inp('Are you in home (y/n)?', '(y/n)? ', key=lambda el: el.upper() in ['Y', 'N']).upper()  == 'N':
+        if inp(f'Are you in your home town, {address} (y/n)?', '(y/n)? ', key=lambda el: el.upper() in ['Y', 'N']).upper()  == 'N':
             if inp('Do we have your current city in the list (y/n)?', '(y/n)? ', key=lambda el: el.upper() in ['Y', 'N']).upper() == 'Y':
                 start = inp(
                     "First please enter city code in which you are living or leaving: ",
@@ -16,7 +16,6 @@ def start_finder(address, cities, distances):
     except Exception as e:
         try:
             search = address if e else 'Some non-sensce'
-            print(search)
             start = cities.index(search) + 1
         except:
             print("\n       ----> Not recognized home city <----\n")

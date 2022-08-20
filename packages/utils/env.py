@@ -1,6 +1,8 @@
 import sys
 from packages.common.input import inp
 from packages.utils.register import register as __register
+from packages.common.clear import clear_console
+
 def main(rerun = False):
     if rerun: sys.argv = ['']
     def __set_out(key, value):
@@ -17,6 +19,7 @@ def main(rerun = False):
                     print('when using enviromental variables, use three "type", "username" and "password" together.')
                     login__checker = False
                     continue
+        clear_console()
         return out
 
 def __do_on_args(arg_list, exp_list, func_list):
