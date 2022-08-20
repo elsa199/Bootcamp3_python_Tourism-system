@@ -9,8 +9,8 @@ print('         When ever you wanted to cancel use-> Ctrl + c + Enter       ')
 print('---------------------------------------------------------------------\n')
 
 while True:
-    inputs = initialize()
-    user = login(inputs)
+    # inputs = initialize()
+    user = login({'username': 'hamed', 'password': '1', 'type': 'tourist'})
 
     if isinstance(user, Tourist):
         from packages.tourist.main import main as tourist_route

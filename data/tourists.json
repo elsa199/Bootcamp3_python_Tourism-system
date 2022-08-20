@@ -2,6 +2,9 @@
     {
         "username": "hamed",
         "password": "1",
+        "first_name": "hamed",
+        "last_name": "molavi",
+        "address": "Isfahan",
         "national_id": "1171171177",
         "tel": "09130111591",
         "account": {

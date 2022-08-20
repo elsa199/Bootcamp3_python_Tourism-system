@@ -1,5 +1,4 @@
 from packages.common.input import inp
-from data.points import cities, distances
 
 
 def main(commands: list, tourist):
@@ -8,8 +7,7 @@ def main(commands: list, tourist):
     while not relogin:
         command = inp('', '\t\t***Wrong Command***\n', key = [lambda el: el in commands[0]])
         if command == 'travel':
-            [trip, best_distance] = tourist.travel(cities, distances)
-            trip = [cities[el - 1] for el in trip]
+            [trip, best_distance] = tourist.travel()
             print(f'Your route is -> {trip}')
             print(f'Your total route length would be -> {best_distance}', end='\nDone!\n\n')
             continue
@@ -17,7 +15,6 @@ def main(commands: list, tourist):
             # Show tourist data
             continue
         elif command == 'relogin':
-            # Show tourist data
             relogin = True
             continue
         else:
