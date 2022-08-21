@@ -1,5 +1,7 @@
 import sys
 
+from packages.common.clear import clear_console
+
 def __inputDeco(inpFunc):
     def newFunc(prompt:str = "Please enter your input: ", reprompr:str = "Please enter a valid input: ", **kwarg: dict):
         '''key = a list of appling keys to output : list
@@ -7,6 +9,7 @@ def __inputDeco(inpFunc):
         try:
             out = inpFunc(prompt)  # First time taking input
         except KeyboardInterrupt:
+            clear_console(0)
             sys.exit(0)
         check = False # Assume additional keys are false (pass the while) and check them later
 
@@ -23,6 +26,7 @@ def __inputDeco(inpFunc):
                 out = inpFunc(reprompr)  # First time taking input
                 check = False
             except KeyboardInterrupt:
+                clear_console(0)
                 sys.exit(0)
             if kwarg.get('convert'):
                 try:
@@ -47,6 +51,7 @@ def __inputDeco(inpFunc):
             try:
                 out = inpFunc(reprompr)  # First time taking input
             except KeyboardInterrupt:
+                clear_console(0)
                 sys.exit(0)
             if kwarg.get('convert'):
                 try:
@@ -63,7 +68,7 @@ def __inputDeco(inpFunc):
                         check |= not key(out)
                         if check:
                             break
-                    except IndexError:
+                    except IndexError or TypeError:
                         check = True
                         break
                     except:
@@ -75,3 +80,10 @@ def __inputDeco(inpFunc):
     return newFunc
 
 inp = __inputDeco(input)
+
+def key_try_except(el, cb):
+    try:
+        cb(el)
+        return True
+    except:
+        return False

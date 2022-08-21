@@ -6,11 +6,7 @@ from packages.common.swap import swap
 
 
 def ga(cities: Array, distances: list, indexes: list, start: int) -> list:
-    no_cities = len(cities)
     start -= 1 # index wise
-    for el in indexes: #                        Check user numbers
-        if el < 0 or el > no_cities:
-            raise Exception()
     
     no_points = len(indexes) # Number of points
 
@@ -34,7 +30,7 @@ def ga(cities: Array, distances: list, indexes: list, start: int) -> list:
     
     ga_tsp = __GA_TSP(func=distance, n_dim=len(indexes), size_pop=50, max_iter=500, prob_mut=1)
     arrange, best_distance = ga_tsp.run()
-    indexes = swap(indexes, arrange) # Arrange original indexes based on the arranged list
+    indexes = [start] + [el - 1 for el in swap(indexes, arrange)] # Arrange original indexes based on the arranged list
     
     if best_distance != 0: #                        Check Distance
         return [indexes, best_distance]
