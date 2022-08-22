@@ -1,0 +1,5 @@
+id,tourist_nid,type,service,starting_city,destination_city,start,end,price
+3,0123456789,residence,hotel,Tehran,Tehran,1661162400,1661326200,600000
+4,0123456789,ride,airplain,Tehran,Mashhad,1661326200,1661331600,2000000
+5,0123456789,residence,appartment,Mashhad,Mashhad,1661333400,1661412600,200000
+6,0123456789,ride,bus,Mashhad,Isfahan,1661448600,1661499000,100000

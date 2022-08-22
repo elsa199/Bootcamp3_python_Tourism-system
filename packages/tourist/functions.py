@@ -39,7 +39,7 @@ def gimmedates(trip):
         user_date = mktime(inp(
             f"Please enter when you're leaving {city} (YYYY MM DD hh:mm)? ", 'VALID and in format like "YYYY MM DD hh:mm" and not in the past: ',
             convert=lambda s: tuple([*[int(el) for el in s.split()[:-1]] + [int(el)
-                                    for el in s.split()[-1].split(':')], 0, 0, 0, 1]),
+                                    for el in s.split()[-1].split(':')], 0, 0, 0, 0 if localtime()[1] < 7 else 1]),
             key=[
                     lambda el: np.all(mktime(el) > dates) and el[3] < 24 and el[4] < 60,
                     lambda el: key_try_except(el, lambda el2: date(el2[0], el2[1], el2[2]))

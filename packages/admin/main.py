@@ -15,4 +15,3 @@ def main(commands: list, admin):
         else:
             output = commands[1][commands[0].index(command)]()
             continue
-

@@ -1,1 +1,5 @@
-id,tourist_id
+id,tourist_nid,type,service,starting_city,destination_city,start,end,price,score
+1,0123456789,ride,car,Isfahan,Tehran,1661148000,1661162400,300000,None
+2,0123456789,ride,car,Isfahan,Tehran,1661148000,1661162400,300000,
+3,0123456789,ride,car,Isfahan,Tehran,1661148000,1661162400,300000,
+4,0123124239,ride,car,Isfahan,Tehran,1661148000,1661162400,300000,
