@@ -18,8 +18,10 @@ def login(inputs):
             else: raise Exception('I')
         except Exception as e:
             print("***************\nWrong username and password. Please try again.\n***************\n")
-            inputs = initialize(True)
-            continue
+            return False
     if inputs['type'] == 'tourist':
         from packages.tourist.Class import Tourist
         return Tourist(**user)
+    if inputs['type'] == 'admin':
+        from packages.admin.Class import Admin
+        return Admin(**user)

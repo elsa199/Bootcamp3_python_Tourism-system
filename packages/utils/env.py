@@ -4,7 +4,7 @@ from packages.utils.register import register as __register
 from packages.common.clear import clear_console
 
 def main(rerun = False):
-    if rerun: sys.argv = ['']
+    if rerun: sys.argv = ['app.py']
     def __set_out(key, value):
         out[key] = value
     login__checker = True
@@ -19,7 +19,7 @@ def main(rerun = False):
                     print('when using enviromental variables, use three "type", "username" and "password" together.')
                     login__checker = False
                     continue
-        clear_console()
+        clear_console(0)
         return out
 
 def __do_on_args(arg_list, exp_list, func_list):

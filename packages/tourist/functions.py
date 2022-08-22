@@ -1,5 +1,5 @@
 from packages.common.input import inp, key_try_except
-from data.points import update_pds
+from packages.utils.points import update_cities_data
 import numpy as np
 from time import time, gmtime, localtime, mktime, strftime
 from calendar import timegm
@@ -29,7 +29,7 @@ def start_finder(address, cities, distances):
                 raise Exception()
         except Exception:
             print("\n       ----> Not recognized home city <----\n")
-            cities, distances = update_pds(cities, distances, address)
+            cities, distances = update_cities_data(cities, distances, address)
     return [start, cities, distances]
 
 

@@ -33,12 +33,11 @@ class Tourist():
         # --------------------------------------------------------------------------------------
 
     def travel(self):
-        from data.points import cities, distances
+        from packages.utils.points import load_cities_data
+        cities, distances = load_cities_data()
         print('\n')
-        print(*[f'{el}: {index + 1}' for index,
-              el in enumerate(cities)], sep=" -=- ", end='\n\n')
-        start, cities, distances = start_finder(
-            self['address'], cities, distances)
+        print(*[f'{el}: {index + 1}' for index, el in enumerate(cities)], sep=" -=- ", end='\n\n')
+        start, cities, distances = start_finder(self['address'], cities, distances)
         trip = inp(
             'Please enter your visiting cities as a sequence (e.g. 1 2 3): ',
             f'Please enter a valid sequence of numbers between 1 and {len(cities)}, also dont enter your start city: ',

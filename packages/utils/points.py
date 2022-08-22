@@ -2,32 +2,13 @@ import numpy as np
 import pandas as pd
 from packages.common.input import inp
 
-cities = [el[0] for el in pd.read_csv('./data/cities.csv', header=None).values.tolist()]
-# cities = [
-#     'Tehran',  # 1
-#     'Mashhad', # 2
-#     'Isfahan', # 3
-#     'Chaloos', # 4
-#     'Zahedan', # 5
-#     'Brojerd', # 6
-#     'Hamedan', # 7
-#     'Tabriz'   # 8
-# ]
-distances = pd.read_csv('./data/distances.csv', header=None)
-# distances = np.array([
-#     #1      2       3       4       5       6       7       8
-#     [0,     911,    442,    141,    1516,   393,    317,    618], # 1
-#     [911,   0,      1162,   910,    916,    1206,   1194,   1550], # 2
-#     [442,   1162,   0,      580,    1212,   353,    474,    900], # 3
-#     [141,   910,    580,    0,      1598,   522,    447,    746], # 4
-#     [1516,  916,    1212,   1598,   0,      1612,   1636,   2022], # 5
-#     [393,   1206,   353,    522,    1612,   0,      145,    698], # 6
-#     [317,   1194,   474,    447,    1636,   145,    0,      558], # 7
-#     [618,   1550,   900,    746,    2022,   698,    558,    0], # 8
-# ])
+def load_cities_data():
+    cities = [el[0] for el in pd.read_csv('./data/cities.csv', header=None).values.tolist()]
+    distances = pd.read_csv('./data/distances.csv', header=None)
+    return [cities, distances]
 
-def update_pds(cities: list, distances, address):
 
+def update_cities_data(cities: list, distances, address):
     temp = []
     for city in cities:
         choice = inp(
