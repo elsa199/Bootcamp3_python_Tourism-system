@@ -7,6 +7,8 @@ from packages.tourist.functions import start_finder, gimmedates
 from time import sleep, time, gmtime, localtime, mktime, strftime
 from calendar import timegm
 from datetime import date
+from packages.driver.Driver import search
+
 
 class Tourist():
     def __init__(
@@ -53,6 +55,7 @@ class Tourist():
                             df.iloc[i, df.columns.get_loc('score')] = 'None'
                         else:
                             df.iloc[i, df.columns.get_loc('score')] = int(new_score)
+                            # call score function based on type and pass service id and new score to it
             else:
                 if show:
                     print('\n\nThere is not any un-scored services in your profile. :)\n\n')
@@ -72,19 +75,22 @@ class Tourist():
             'Please enter your visiting cities as a sequence (e.g. 1 2 3): ',
             f'Please enter a valid sequence of numbers between 1 and {len(cities)}, also dont enter your start city: ',
             convert=lambda Ls: [int(el) for el in Ls.split()],
-            key=lambda L: True if sum([1 if el != start and el > 0 and el <= len(
-                cities) else 0 for el in L]) == len(L) else False
+            key=lambda L: True if sum([1 if el != start and el > 0 and el <= len(cities) else 0 for el in L]) == len(L) else False
         )
         trip, best_distance = ga(cities, distances, trip, start)
         clear_console()
 
-        no_passengers = inp(
-            'How many passenger are you? ', 'enter a positive number',
-            convert=int,
-            key=lambda el: el > 0
-        )
-        dates = gimmedates(trip)
-        print('trip:', trip, 'dates', dates, 'Number of passengers: ', no_passengers, sep='\n')
+        while True:
+            no_passengers = inp(
+                'How many passenger are you? ', 'Enter a positive number: ',
+                convert=int,
+                key=lambda el: el > 0
+            )
+            dates = gimmedates(trip)
+            status, dates = search(trip, dates, no_passengers)
+            if status: break
+            
+        clear_console()
         
 
 
