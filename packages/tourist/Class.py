@@ -82,10 +82,11 @@ class Tourist():
 
         while True:
             no_passengers = inp(
-                'How many passenger are you? ', 'Enter a positive number: ',
-                convert=int,
-                key=lambda el: el > 0
+                'How many passenger are you (or you can type "cancel")? ', 'Enter a positive number: ',
+                key=lambda el: el.isnumeric() and int(el) > 0 or el == 'cancel'
             )
+            if no_passengers == 'cancel': return
+            else: no_passengers = int(no_passengers)
             dates = gimmedates(trip)
             status, dates = search(trip, dates, no_passengers)
             if status: break
