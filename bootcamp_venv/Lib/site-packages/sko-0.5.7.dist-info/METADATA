@@ -1,0 +1,40 @@
+Metadata-Version: 2.1
+Name: sko
+Version: 0.5.7
+Summary: Swarm Intelligence in Python
+Home-page: https://github.com/guofei9987/scikit-opt
+Author: Guo Fei
+Author-email: guofei9987@foxmail.com
+License: MIT
+Platform: linux
+Platform: windows
+Platform: macos
+Requires-Python: >=3.5
+Description-Content-Type: text/markdown
+Requires-Dist: numpy
+Requires-Dist: scipy
+
+
+
+Swarm Intelligence in Python  
+(Genetic Algorithm, Particle Swarm Optimization, Simulated Annealing, Ant Colony Algorithm, Immune Algorithm,Artificial Fish Swarm Algorithm in Python)  
+
+# Don't use sko, use [scikit-opt](https://pypi.org/project/scikit-opt/) instead
+
+[![PyPI](https://img.shields.io/pypi/v/scikit-opt)](https://pypi.org/project/scikit-opt/)
+[![Build Status](https://travis-ci.com/guofei9987/scikit-opt.svg?branch=master)](https://travis-ci.com/guofei9987/scikit-opt)
+[![codecov](https://codecov.io/gh/guofei9987/scikit-opt/branch/master/graph/badge.svg)](https://codecov.io/gh/guofei9987/scikit-opt)
+[![License](https://img.shields.io/pypi/l/scikit-opt.svg)](https://github.com/guofei9987/scikit-opt/blob/master/LICENSE)
+![Python](https://img.shields.io/badge/python->=3.5-green.svg)
+![Platform](https://img.shields.io/badge/platform-windows%20|%20linux%20|%20macos-green.svg)
+[![PyPI_downloads](https://img.shields.io/pypi/dm/scikit-opt)](https://pypi.org/project/scikit-opt/)
+[![Join the chat at https://gitter.im/guofei9987/scikit-opt](https://badges.gitter.im/guofei9987/scikit-opt.svg)](https://gitter.im/guofei9987/scikit-opt?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+
+
+
+- **Documentation:** [https://scikit-opt.github.io/scikit-opt/#/en/](https://scikit-opt.github.io/scikit-opt/#/en/)
+- **文档：** [https://scikit-opt.github.io/scikit-opt/#/zh/](https://scikit-opt.github.io/scikit-opt/#/zh/)  
+- **Source code:** [https://github.com/guofei9987/scikit-opt](https://github.com/guofei9987/scikit-opt)
+
+
