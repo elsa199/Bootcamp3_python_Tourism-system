@@ -1,12 +1,7 @@
-import json
 import pandas as pd
-from packages.utils.env import main as initialize
 
 def login(inputs):
-    path = f'./data/{inputs["type"]}s.json'
-    fObj = open(path)
-    jdict = json.load(fObj)
-    users = pd.json_normalize(jdict)
+    users = pd.read_csv(f'./data/{inputs["type"]}s.csv', dtype=str)
     while True:
         # Check username and password initialize(True)
         try:

@@ -13,6 +13,8 @@ rerun = False
 while True:
     inputs = initialize(rerun)
     user = login(inputs) # {'username': 'hamed', "password": '1', "type": 'tourist'}
+    print(user)
+    print(user['address'])
     if not bool(user):
         rerun = True
         continue
