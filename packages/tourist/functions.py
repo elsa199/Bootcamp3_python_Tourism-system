@@ -33,11 +33,11 @@ def start_finder(address, cities, distances):
     return [start, cities, distances]
 
 
-def gimmedates(trip, cities):
+def gimmedates(trip):
     dates = np.array([mktime(localtime())])
-    for ind in trip:
+    for city in trip:
         user_date = mktime(inp(
-            f"Please enter when you're leaving {cities[ind]} (YYYY MM DD hh:mm)? ", 'VALID and in format like "YYYY MM DD hh:mm" and not in the past: ',
+            f"Please enter when you're leaving {city} (YYYY MM DD hh:mm)? ", 'VALID and in format like "YYYY MM DD hh:mm" and not in the past: ',
             convert=lambda s: tuple([*[int(el) for el in s.split()[:-1]] + [int(el)
                                     for el in s.split()[-1].split(':')], 0, 0, 0, 1]),
             key=[
@@ -46,4 +46,4 @@ def gimmedates(trip, cities):
                 ]
         ))
         dates = np.append(dates, user_date)
-    return dates
+    return dates[1:]

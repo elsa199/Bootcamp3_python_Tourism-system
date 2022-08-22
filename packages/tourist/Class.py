@@ -53,7 +53,7 @@ class Tourist():
             convert=int,
             key=lambda el: el > 0
         )
-        dates = gimmedates(trip, cities)
-
+        dates = gimmedates(trip)
+        print('trip:', trip, 'dates', dates, 'Number of passengers: ', no_passengers, sep='\n')
 
         return trip, best_distance

@@ -11,7 +11,7 @@ def ga(cities: Array, distances: list, indexes: list, start: int) -> list:
     no_points = len(indexes) # Number of points
 
     if no_points == 1: # If user had one destination, there is no need to use Genetic Algorithm
-        return [indexes, distances[start][indexes[0] - 1]]
+        return [[cities[start]] + [cities[el - 1] for el in indexes], distances[start][indexes[0] - 1]]
 
     cut_distances = np.zeros([no_points, no_points]) # portion of distances we need.
     for indi, i in enumerate(indexes):
@@ -30,7 +30,7 @@ def ga(cities: Array, distances: list, indexes: list, start: int) -> list:
     
     ga_tsp = __GA_TSP(func=distance, n_dim=len(indexes), size_pop=50, max_iter=500, prob_mut=1)
     arrange, best_distance = ga_tsp.run()
-    indexes = [start] + [el - 1 for el in swap(indexes, arrange)] # Arrange original indexes based on the arranged list
+    indexes = [cities[start]] + [cities[el - 1] for el in swap(indexes, arrange)] # Arrange original indexes based on the arranged list
     
     if best_distance != 0: #                        Check Distance
         return [indexes, best_distance]
@@ -38,5 +38,6 @@ def ga(cities: Array, distances: list, indexes: list, start: int) -> list:
         raise Exception('You must choose cities, initiated with some city but your start city.')
 
 if __name__ == "__main__":
-    from data.points import cities, distances
+    from packages.utils.points import load_cities_data
+    cities, distances = load_cities_data()
     ga(cities, distances)
