@@ -7,7 +7,9 @@ from packages.tourist.functions import start_finder, gimmedates
 from time import sleep, time, gmtime, localtime, mktime, strftime
 from calendar import timegm
 from datetime import date
-from packages.driver.Driver import search
+from packages.driver.functions import request_transition
+from packages.landlord.functions import request_residence
+from packages.utils.updates import update_services
 
 
 class Tourist():
@@ -22,9 +24,6 @@ class Tourist():
         self['first_name'] = first_name
         self['last_name'] = last_name
         self['tel'] = tel
-        self['account'] = account
-        self['active_services'] = active_services
-        self['travels'] = travels
         return None
 
     def __setitem__(self, key, value):
@@ -39,7 +38,7 @@ class Tourist():
             show = False
             flag =  inp("Do you want to score your previous services (y/n)? ", "y/n: ", key = lambda el: el.upper() in ['Y', 'N']).upper() == 'Y'
         if flag:
-            df = pd.read_csv('./data/travels.csv', dtype=str)
+            df = pd.read_csv('./data/services.csv', dtype=str)
             if df.isna().sum().sum():
                 print("\n  **  Type cancel to terminate scoring, type none to don't give score to a service.\n")
                 for i, row in df.iterrows():
@@ -47,7 +46,10 @@ class Tourist():
                         price = '{:,.2f}'.format(int(row.price))
                         start = strftime('%Y-%m-%d %H:%M', localtime(int(row.start)))
                         end = strftime('%Y-%m-%d %H:%M', localtime(int(row.end)))
-                        print(f'Your {row.type} service from {row.starting_city} to {row.destination_city} in {start} to {end} costed you {price} Tomans.\n')
+                        if row.type == 'ride':
+                            print(f'\nYou used transition service with {row.service} from {row.starting_city} to {row.destination_city} in {start} and it costed you {price} Tomans.\n')
+                        else:
+                            print(f'\nYou stayed in {row.service} in {row.starting_city} from {start} to {end} and it costed you {price} Tomans.\n')
                         new_score = inp('From 1 to 5, score this service: ', 'Enter a valid amount: ', key = lambda el: el.upper() in ['1', '2', '3', '4', '5', 'NONE', 'CANCEL']).upper()
                         if new_score == 'CANCEL':
                             break
@@ -60,7 +62,7 @@ class Tourist():
                 if show:
                     print('\n\nThere is not any un-scored services in your profile. :)\n\n')
                     sleep(2)
-            df.to_csv('./data/travels.csv', index = False)
+            df.to_csv('./data/services.csv', index = False)
             print('\n\n\t\tDone!!\n\n')
             sleep(2)
         clear_console()
@@ -79,20 +81,49 @@ class Tourist():
         )
         trip, best_distance = ga(cities, distances, trip, start)
         clear_console()
-
-        while True:
-            no_passengers = inp(
-                'How many passenger are you (or you can type "cancel")? ', 'Enter a positive number: ',
-                key=lambda el: el.isnumeric() and int(el) > 0 or el == 'cancel'
-            )
-            if no_passengers == 'cancel': return
-            else: no_passengers = int(no_passengers)
-            dates = gimmedates(trip)
-            status, dates = search(trip, dates, no_passengers)
-            if status: break
-            
-        clear_console()
-        
+        no_passengers = inp(
+            'How many passenger are you (or you can type "cancel")? ', 'Enter a positive number: ',
+            key=lambda el: el.isnumeric() and int(el) > 0 or el == 'cancel'
+        )
+        if no_passengers == 'cancel': return False
+        else: no_passengers = int(no_passengers)
 
 
-        return trip, best_distance
+
+
+
+        new_services = pd.DataFrame(
+                columns=['id','tourist_nid','service_id','type','service','starting_city','destination_city','start','end','price']
+                )
+        start_dates = np.array([])
+        destination_dates = np.array([])
+        total_price = 0
+
+
+
+
+        if inp("Do you have your own car (y/n)? ", "y/n: ", convert = lambda el: el.upper(), key = lambda el: el in ['Y', 'N']) == "N":
+            for i in range(len(trip)):
+                if i < len(trip) - 1:
+                    status, start_dates, destination_dates, new_services, total_price = request_transition(
+                        self['national_id'], trip[i], trip[i+1], no_passengers, start_dates, destination_dates, new_services,  total_price
+                    )
+                    if status == 400 : return False
+
+                if i > 0:
+                    status, new_services, total_price = request_residence(
+                        self['national_id'], trip[i], destination_dates[i-1], start_dates[i], no_passengers, total_price, new_services
+                    )
+                    if status == 400 : return False
+        else:
+            for i in range(1, len(trip)):
+                status, new_services, total_price = request_residence(
+                    self['national_id'], trip[i], destination_dates[i-1], start_dates[i], no_passengers, total_price, new_services
+                )
+                if status == 400 : return False
+
+        update_services(new_services)
+        # Cut tourist's deposit
+
+
+

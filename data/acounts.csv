@@ -1,1 +1,2 @@
-id,tourist_id,deposit
+id,owner_id,deposit
+1,0123456789,0

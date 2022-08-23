@@ -33,8 +33,14 @@ def start_finder(address, cities, distances):
     return [start, cities, distances]
 
 
-def gimmedates(trip):
+def gimmedates(trip, check_dates = []):
+    if not isinstance(trip, list): trip = [trip]
+    if isinstance(check_dates, list): check_dates = np.array(check_dates)
     dates = np.array([mktime(localtime())])
+    if bool(check_dates.size):
+        dates = np.append(dates, check_dates)
+        l = len(check_dates)
+    else: l = 0
     for city in trip:
         user_date = mktime(inp(
             f"Please enter when you're leaving {city} (YYYY MM DD hh:mm)? ", 'VALID and in format like "YYYY MM DD hh:mm" and not in the past: ',
@@ -46,4 +52,5 @@ def gimmedates(trip):
                 ]
         ))
         dates = np.append(dates, user_date)
-    return dates[1:]
+    if len(trip) == 1: return dates[-1]
+    return dates[l + 1:]

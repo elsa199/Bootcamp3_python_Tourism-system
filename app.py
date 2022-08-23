@@ -18,8 +18,8 @@ rerun = False
 
 
 while True:
-    # inputs = initialize(rerun)
-    user = login({'username': 'hamed', "password": '1', "type": 'tourist'}) # {'username': 'hamed', "password": '1', "type": 'tourist'}
+    inputs = initialize(rerun)
+    user = login(inputs) # {'username': 'hamed', "password": '1', "type": 'tourist'}
     if not bool(user):
         rerun = True
         continue
