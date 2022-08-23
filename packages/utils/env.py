@@ -2,8 +2,10 @@ import sys
 from packages.common.input import inp
 from packages.utils.register import register as __register
 from packages.common.clear import clear_console
+from packages.utils.updates import update_travels
 
 def main(rerun = False):
+    update_travels()
     if rerun: sys.argv = ['app.py']
     def __set_out(key, value):
         out[key] = value
