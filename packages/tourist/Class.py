@@ -86,12 +86,12 @@ class Tourist():
         )
         trip, best_distance = ga(cities, distances, trip, start)
         clear_console()
-        no_passengers = inp(
-            'How many passenger are you (or you can type "cancel")? ', 'Enter a positive number: ',
-            key=lambda el: el.isnumeric() and int(el) > 0 or el == 'cancel'
-        )
-        if no_passengers == 'cancel': return False
-        else: no_passengers = int(no_passengers)
+        no_passengers = 2# inp(
+        #     'How many passenger are you (or you can type "cancel")? ', 'Enter a positive number: ',
+        #     key=lambda el: el.isnumeric() and int(el) > 0 or el == 'cancel'
+        # )
+        # if no_passengers == 'cancel': return False
+        # else: no_passengers = int(no_passengers)
 
         new_services = pd.DataFrame(
                 columns=['id','tourist_nid','service_id','type','service','starting_city','destination_city','start','end','price']
@@ -99,28 +99,41 @@ class Tourist():
         start_dates = np.array([])
         destination_dates = np.array([])
         total_price = 0
-
-        if inp("Do you have your own car (y/n)? ", "y/n: ", convert = lambda el: el.upper(), key = lambda el: el in ['Y', 'N']) == "N":
-            for i in range(len(trip)):
+        # inp("Do you have your own car (y/n)? ", "y/n: ", convert = lambda el: el.upper(), key = lambda el: el in ['Y', 'N'])
+        if 'y' == "N":
+            i = 0
+            while i < len(trip):
                 if i < len(trip) - 1:
                     status, start_dates, destination_dates, new_services, total_price = request_transition(
                         self['national_id'], trip[i], trip[i+1], no_passengers, start_dates, destination_dates, new_services,  total_price
                     )
                     if status == 400: return False
+                    if status == 300: continue
                 if i > 0:
                     status, new_services, total_price = request_residence(
                         self['national_id'], trip[i], destination_dates[i-1], start_dates[i], no_passengers, total_price, new_services
                     )
                     if status == 400 : return False
+                    if status == 300: continue
+                i += 1
         else:
-            for i in range(1, len(trip)):
+            start_dates = np.append(start_dates, mktime(localtime())) # Consider travels from start just now
+            i = 1
+            while i < len(trip):
+                destination_date = gimmedates(trip[i], destination_dates, 'arriving to')
+                start_date = gimmedates(trip[i], destination_dates)
                 status, new_services, total_price = request_residence(
-                    self['national_id'], trip[i], destination_dates[i-1], start_dates[i], no_passengers, total_price, new_services
+                    self['national_id'], trip[i], destination_date, start_date, no_passengers, total_price, new_services
                 )
                 if status == 400 : return False
-
+                if status == 300 : continue
+                start_dates = np.append(start_dates, start_date)
+                destination_dates = np.append(destination_dates, destination_date)
+                i += 1
         update_services(new_services)
         # Cut tourist's deposit
+
+        clear_console()
 
 
 

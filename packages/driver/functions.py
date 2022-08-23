@@ -11,10 +11,10 @@ def request_transition(tourist_nid, start_city, destination_city, no_passengers,
         status, service_id, service_type, destination_date, price = ride_search(start_city, destination_city, no_passengers, start_date)
         if status == 300:
             clear_console()
-            break
+            continue
         elif status == 400:
             clear_console()
-            return [400, None, None, None, None]
+            return [400, start_date, destination_date, new_service, total_price]
         elif status == 200:
             start_dates = np.append(start_dates, start_date)
             destination_dates = np.append(destination_dates, destination_date)
@@ -26,5 +26,5 @@ def request_transition(tourist_nid, start_city, destination_city, no_passengers,
             new_services = pd.concat([new_services, new_service], axis = 0, ignore_index=True)
             total_price += price
             clear_console()
-            return [400, start_date, destination_date, new_service, total_price]
+            return [200, start_date, destination_date, new_service, total_price]
             

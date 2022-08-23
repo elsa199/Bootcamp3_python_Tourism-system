@@ -16,7 +16,7 @@ def update_services(new_service: DataFrame = pd.DataFrame()):
     if bool(new_service.size):
         for i in new_service.index:
             last_id += 1
-            new_service[i] = new_service[i].replace(['id'], str(last_id))
+            new_service.loc[i,'id'] = str(last_id)
         active_services = pd.concat([active_services, new_service], axis = 0, ignore_index=True)
     active_services.to_csv('./data/active_services.csv', index= False)
 

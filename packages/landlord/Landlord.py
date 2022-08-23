@@ -5,12 +5,12 @@ from packages.common.input import inp
 
 class Landlord():
     types = ['Hotel', 'Apartment', 'Motel', 'Inn','Room', 'Villa']
-    def __init__(self,username:str,password:str, first_name: str,family_name:str,national_code:str,tel: str,**kwargs) -> None:
+    def __init__(self,username:str,password:str, first_name: str,last_name:str,national_id:str,tel: str,**kwargs) -> None:
         self['username']=username
         self['password']= password 
         self['first_name']= first_name
-        self['family_name']=family_name
-        self['national_code']=national_code
+        self['last_name']=last_name
+        self['national_id']=national_id
         self['tel']=tel
         return None
     def __setitem__(self,key,value):
@@ -22,12 +22,12 @@ class Landlord():
     def reservation(self, residence_id, duration):
         # Alter the residences file and cash in
         residences = pd.read_csv('./data/residences.csv', dtype=str)
-        i = residences[residences.landlord_id == self['national_code'] and residences.id == residence_id].index
+        i = residences[residences.id == residence_id].index
 
         residences.iloc[i[0], residences.columns.get_loc('reserved')] = '1'
         residences.to_csv('./data/residences.csv', index=False)
-
-        rent = int(residences.iloc[i[0], residences.columns.get_loc('reserved')])
+        
+        rent = int(residences.iloc[i[0], residences.columns.get_loc('rent')])
         price = rent * duration
         return price
 

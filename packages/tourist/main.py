@@ -6,15 +6,13 @@ def main(commands: list, tourist):
     tourist.score(False)
 
 
-
     if not isinstance(commands[0], list): commands = [commands, [lambda:None for _ in range(len(commands))]]
     relogin = False
     while not relogin:
         command = inp('***\n' + '\n'.join(['You can write these commands: '] + commands[0]) + '\n***\n', '\t\t***Wrong Command***\n', key = [lambda el: el in commands[0]])
+        print("Wellcome... What's your command? :)")
         if command == 'travel':
             tourist.travel()
-            # print(f'Your route is -> {trip}')
-            # print(f'Your total route length would be -> {best_distance}', end='\nDone!\n\n')
             continue
         elif command == 'score':
             tourist.score()
