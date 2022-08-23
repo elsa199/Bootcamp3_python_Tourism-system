@@ -57,6 +57,11 @@ class Tourist():
                             df.iloc[i, df.columns.get_loc('score')] = 'None'
                         else:
                             df.iloc[i, df.columns.get_loc('score')] = int(new_score)
+                            if row.type == 'ride':
+                                from packages.landlord.functions import score
+                            else:
+                                from packages.landlord.functions import score
+                            score(row.service_id, int(new_score))
                             # call score function based on type and pass service id and new score to it
             else:
                 if show:
@@ -88,10 +93,6 @@ class Tourist():
         if no_passengers == 'cancel': return False
         else: no_passengers = int(no_passengers)
 
-
-
-
-
         new_services = pd.DataFrame(
                 columns=['id','tourist_nid','service_id','type','service','starting_city','destination_city','start','end','price']
                 )
@@ -99,17 +100,13 @@ class Tourist():
         destination_dates = np.array([])
         total_price = 0
 
-
-
-
         if inp("Do you have your own car (y/n)? ", "y/n: ", convert = lambda el: el.upper(), key = lambda el: el in ['Y', 'N']) == "N":
             for i in range(len(trip)):
                 if i < len(trip) - 1:
                     status, start_dates, destination_dates, new_services, total_price = request_transition(
                         self['national_id'], trip[i], trip[i+1], no_passengers, start_dates, destination_dates, new_services,  total_price
                     )
-                    if status == 400 : return False
-
+                    if status == 400: return False
                 if i > 0:
                     status, new_services, total_price = request_residence(
                         self['national_id'], trip[i], destination_dates[i-1], start_dates[i], no_passengers, total_price, new_services

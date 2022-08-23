@@ -12,8 +12,6 @@ print('---------------------------------------------------------------------\n')
 rerun = False
 
 
-# from packages.utils.updates import update_travels
-# update_travels()
 
 
 
@@ -30,6 +28,9 @@ while True:
     elif isinstance(user, Admin):
         from packages.admin.main import main as admin_route
         admin_route(['add city', 'relogin'], user)
+    elif isinstance(user, Admin):
+        from packages.landlord.main import main as landlord_route
+        landlord_route(['register residence', 'relogin'], user)
     clear_console(0)
     rerun = False
 

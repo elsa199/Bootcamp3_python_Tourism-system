@@ -20,3 +20,6 @@ def login(inputs):
     if inputs['type'] == 'admin':
         from packages.admin.Class import Admin
         return Admin(**user)
+    if inputs['type'] == 'landlord':
+        from packages.landlord.Landlord import Landlord
+        return Admin(**user)
