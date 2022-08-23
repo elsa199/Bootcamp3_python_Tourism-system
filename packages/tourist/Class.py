@@ -10,7 +10,7 @@ from datetime import date
 from packages.driver.functions import request_transition
 from packages.landlord.functions import request_residence
 from packages.utils.updates import update_services
-
+from packages.Bank.transaction import deposit
 
 class Tourist():
     def __init__(
@@ -31,6 +31,23 @@ class Tourist():
 
     def __getitem__(self, key):
         return getattr(self, key)
+        # --------------------------------------------------------------------------------------
+
+    def deposit(self):
+        amount = inp("How much do you want to deposit? ", "Enter a valid number: ", convert = int, key = lambda el: el>0)
+        try:
+            deposit(self['national_id'], amount)
+            print("\t\t! Done !\n\n")
+            sleep(2)
+            return True
+        except:
+            print("\t\t! Faild !\n\n")
+            sleep(2)
+            return False
+
+
+
+
         # --------------------------------------------------------------------------------------
     def score(self, flag = True):
         show = True
@@ -72,6 +89,7 @@ class Tourist():
             sleep(2)
         clear_console()
 
+        # --------------------------------------------------------------------------------------
     def travel(self):
         from packages.utils.points import load_cities_data
         cities, distances = load_cities_data()

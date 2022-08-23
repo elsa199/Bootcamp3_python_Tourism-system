@@ -12,9 +12,6 @@ print('---------------------------------------------------------------------\n')
 rerun = False
 
 
-
-
-
 while True:
     inputs = initialize(rerun)
     user = login(inputs) # {'username': 'hamed', "password": '1', "type": 'tourist'}
@@ -24,7 +21,7 @@ while True:
 
     if isinstance(user, Tourist):
         from packages.tourist.main import main as tourist_route
-        tourist_route(['travel', 'score', 'relogin'], user)
+        tourist_route(['travel', 'deposit', 'score', 'relogin'], user)
     elif isinstance(user, Admin):
         from packages.admin.main import main as admin_route
         admin_route(['add city', 'relogin'], user)

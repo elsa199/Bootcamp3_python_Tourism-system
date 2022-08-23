@@ -1,6 +1,6 @@
 from packages.common.input import inp
 import pandas as pd
-from packages.utils.updates import update_user
+from packages.utils.updates import update_user, update_accounts
 
 def register(): # Update and add to database
     
@@ -34,7 +34,10 @@ def register(): # Update and add to database
             )
     elif t == 'driver':
         pass
+
+    
     update_user(new_user, t)
+    update_accounts(new_user.national_id)
     return {
         'username': u,
         'type': t,

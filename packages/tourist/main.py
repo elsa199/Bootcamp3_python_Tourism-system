@@ -14,6 +14,9 @@ def main(commands: list, tourist):
         if command == 'travel':
             tourist.travel()
             continue
+        if command == 'deposit':
+            tourist.deposit()
+            continue
         elif command == 'score':
             tourist.score()
             continue

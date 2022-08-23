@@ -1,6 +1,7 @@
 import pandas as pd
 from packages.common.generators import id_generator
 from packages.common.input import inp
+from packages.Bank.transaction import  deposit
 
 
 class Landlord():
@@ -29,7 +30,8 @@ class Landlord():
         
         rent = int(residences.iloc[i[0], residences.columns.get_loc('rent')])
         price = rent * duration
-        return price
+        deposit(self['national_id'], price)
+        return
 
     
     def registeration(self):
