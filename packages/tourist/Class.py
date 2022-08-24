@@ -46,10 +46,15 @@ class Tourist():
             return False
 
     def show_services(self):
-        services = pd.DataFrame('./data/services.csv')
-        active_services = pd.DataFrame('./data/active_services.csv')
-        # Find services with tourist_nid = self['national_id']
-        # Show them seperatly
+        services = pd.read_csv('.data/services.csv', dtype=str)
+        active_services = pd.read_csv('.data/active_services.csv')
+        all_services = pd.concat([services, active_services], axis = 0, ignore_index=True)
+        fit_all_service = all_services.loc[(all_services["tourist_nid"] == self['national_id'])]
+        print("All the services you have used so far:")
+
+        for _, row in fit_all_service.iterrows():
+                print(f'{row.type}:({row.service}) in date: {time.asctime(time.localtime(int(row.start)))} till {time.asctime(time.localtime(int(row.end)))}.')
+                print("........................................................................")
 
 
 
