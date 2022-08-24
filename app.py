@@ -15,16 +15,15 @@ rerun = False
 
 
 while True:
-    # inputs = initialize(rerun)
-    user = login({'username': 'hamed', "password": '1', "type": 'tourist'}) # {'username': 'hamed', "password": '1', "type": 'tourist'}
-    print(user)
+    inputs = initialize(rerun)
+    user = login(inputs)
     if not bool(user):
         rerun = True
         continue
 
     if isinstance(user, Tourist):
         from packages.tourist.main import main as tourist_route
-        tourist_route(['travel', 'deposit', 'score', 'relogin'], user)
+        tourist_route(['travel', 'deposit', 'score', 'relogin', 'show services'], user)
     elif isinstance(user, Admin):
         from packages.admin.main import main as admin_route
         admin_route(['add city', 'relogin'], user)

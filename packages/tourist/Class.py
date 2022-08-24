@@ -45,6 +45,11 @@ class Tourist():
             sleep(2)
             return False
 
+    def show_services(self):
+        services = pd.DataFrame('./data/services.csv')
+        active_services = pd.DataFrame('./data/active_services.csv')
+        # Find services with tourist_nid = self['national_id']
+        # Show them seperatly
 
 
 
@@ -146,9 +151,14 @@ class Tourist():
                 destination_dates = np.append(destination_dates, destination_date)
                 i += 1
         update_services(new_services)
-        # Cut tourist's deposit
-
         clear_console()
+        print('!!! You registerd for a travel !!!')
+        print(f'\n\t\t Total cost was:  {total_price} \n')
+        print(f'\t You will travel from:')
+        print(f'\t\t\t{trip[0]} to {trip[-1]}')
+        print(f'\nTotal Distance would be:')
+        print(f'\t\t\t** {best_distance} **')
+
 
 
 
