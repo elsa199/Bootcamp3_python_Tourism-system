@@ -30,9 +30,10 @@ def update_user(new_user, type):
 
 def update_accounts(national_id):
     accounts = pd.read_csv(f'./data/accounts.csv', dtype=str)
-    if accounts[accounts['owner_id'] == '0123456789'].size:
+    if national_id not in [el for el in accounts.owner_id] or not accounts.size:
         try: last_id = max([int(el) for el in accounts.id])
         except: last_id = 0
         new_account = pd.DataFrame([[str(last_id + 1), national_id, '0']], columns=['id','owner_id','deposit'])
+
         accounts = pd.concat([accounts, new_account], axis = 0, ignore_index=True)
-        accounts.to_csv(f'./data/{type}s.csv', index= False)
+        accounts.to_csv(f'./data/accounts.csv', index= False)

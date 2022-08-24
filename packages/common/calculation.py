@@ -1,6 +1,6 @@
 import math
 from time import localtime, mktime
-
+import pandas as pd
 
 def calc_duration(start_date, end_date, st_count_clock: str, ed_count_clock: str):
     start_date_tuple = localtime(start_date)
@@ -24,3 +24,14 @@ def calc_duration(start_date, end_date, st_count_clock: str, ed_count_clock: str
 
     duration = math.ceil((end_date - start_date)/86400)
     return [start_date, end_date, duration]
+
+
+def calc_arrive_date(starting_city,destination_city,start_datatime,avg_speed):
+        cities = pd.read_csv('./data/cities.csv', header=None)
+        distances = pd.read_csv('./data/distances.csv', header=None)
+        start_index = cities[cities[0] == starting_city].index[0]
+        destination_index = cities[cities[0] == destination_city].index[0]
+        distance = distances[start_index][destination_index]
+        duration = distance * avg_speed
+        destination_date = start_datatime + duration * 60 * 60
+        return destination_date

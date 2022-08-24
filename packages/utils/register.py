@@ -16,7 +16,7 @@ def register(): # Update and add to database
     if t == 'tourist':
         first_name = inp('Please enter your first name: ', 'Must has atleast 3 characters: ', key = lambda el: len(el) >= 3)
         last_name = inp('Please enter your last name: ', 'Must has atleast 3 characters: ', key = lambda el: len(el) >= 3)
-        address = inp('Please enter your home city: ', 'Do not leave it empty: ')
+        address = inp('Please enter your home city: ', 'Do not leave it empty: ').title()
         nid = inp('Please enter your national id number: ', 'Must be 10 characters and be a number: ', key = lambda el: len(el) == 10 and el.isnumeric())
         tel = inp('Please enter your telephone number: ', 'Must has atleast 3 characters and be a number: ', key = lambda el: len(el) >= 3 and el.isnumeric())
         new_user = pd.DataFrame([[
@@ -33,11 +33,19 @@ def register(): # Update and add to database
             columns=['username','password','first_name','last_name','national_id','tel']
             )
     elif t == 'driver':
+        first_name = inp('Please enter your first name: ', 'Must has atleast 3 characters: ', key = lambda el: len(el) >= 3)
+        last_name = inp('Please enter your last name: ', 'Must has atleast 3 characters: ', key = lambda el: len(el) >= 3)
+        nid = inp('Please enter your national id number: ', 'Must be 10 characters and be a number: ', key = lambda el: len(el) == 10 and el.isnumeric())
+        tel = inp('Please enter your telephone number: ', 'Must has atleast 3 characters and be a number: ', key = lambda el: len(el) >= 3 and el.isnumeric())
+        new_user = pd.DataFrame([[
+            u,p,first_name,last_name,nid,tel]],
+            columns=['username','password','first_name','last_name','national_id','tel']
+            )
         pass
 
     
     update_user(new_user, t)
-    update_accounts(new_user.national_id)
+    update_accounts(str(new_user.national_id[0]))
     return {
         'username': u,
         'type': t,

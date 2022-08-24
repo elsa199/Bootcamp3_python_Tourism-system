@@ -49,44 +49,42 @@ class Tourist():
 
 
         # --------------------------------------------------------------------------------------
-    def score(self, flag = True):
-        show = True
-        if not flag:
-            show = False
-            flag =  inp("Do you want to score your previous services (y/n)? ", "y/n: ", key = lambda el: el.upper() in ['Y', 'N']).upper() == 'Y'
-        if flag:
-            df = pd.read_csv('./data/services.csv', dtype=str)
-            if df.isna().sum().sum():
-                print("\n  **  Type cancel to terminate scoring, type none to don't give score to a service.\n")
-                for i, row in df.iterrows():
-                    if bool(df.loc[[i]].isna().sum().sum()) and row.tourist_nid == self['national_id']:
-                        price = '{:,.2f}'.format(int(row.price))
-                        start = strftime('%Y-%m-%d %H:%M', localtime(int(row.start)))
-                        end = strftime('%Y-%m-%d %H:%M', localtime(int(row.end)))
-                        if row.type == 'ride':
-                            print(f'\nYou used transition service with {row.service} from {row.starting_city} to {row.destination_city} in {start} and it costed you {price} Tomans.\n')
-                        else:
-                            print(f'\nYou stayed in {row.service} in {row.starting_city} from {start} to {end} and it costed you {price} Tomans.\n')
-                        new_score = inp('From 1 to 5, score this service: ', 'Enter a valid amount: ', key = lambda el: el.upper() in ['1', '2', '3', '4', '5', 'NONE', 'CANCEL']).upper()
-                        if new_score == 'CANCEL':
-                            break
-                        elif new_score == 'NONE':
-                            df.iloc[i, df.columns.get_loc('score')] = 'None'
-                        else:
-                            df.iloc[i, df.columns.get_loc('score')] = int(new_score)
+    def score(self, show = True):
+        df = pd.read_csv('./data/services.csv', dtype=str)
+        if df.isna().sum().sum():
+            if not show:
+                flag = inp("Do you want to score your previous services (y/n)? ", "y/n: ", key = lambda el: el.upper() in ['Y', 'N']).upper() == 'Y'
+            else: flag = True
+            if flag:
+                    print("\n  **  Type cancel to terminate scoring, type none to don't give score to a service.\n")
+                    for i, row in df.iterrows():
+                        if bool(df.loc[[i]].isna().sum().sum()) and row.tourist_nid == self['national_id']:
+                            price = '{:,.2f}'.format(int(row.price))
+                            start = strftime('%Y-%m-%d %H:%M', localtime(int(row.start)))
+                            end = strftime('%Y-%m-%d %H:%M', localtime(int(row.end)))
                             if row.type == 'ride':
-                                from packages.landlord.functions import score
+                                print(f'\nYou used transition service with {row.service} from {row.starting_city} to {row.destination_city} in {start} and it costed you {price} Tomans.\n')
                             else:
-                                from packages.landlord.functions import score
-                            score(row.service_id, int(new_score))
-                            # call score function based on type and pass service id and new score to it
-            else:
-                if show:
-                    print('\n\nThere is not any un-scored services in your profile. :)\n\n')
-                    sleep(2)
-            df.to_csv('./data/services.csv', index = False)
-            print('\n\n\t\tDone!!\n\n')
-            sleep(2)
+                                print(f'\nYou stayed in {row.service} in {row.starting_city} from {start} to {end} and it costed you {price} Tomans.\n')
+                            new_score = inp('From 1 to 5, score this service: ', 'Enter a valid amount: ', key = lambda el: el.upper() in ['1', '2', '3', '4', '5', 'NONE', 'CANCEL']).upper()
+                            if new_score == 'CANCEL':
+                                break
+                            elif new_score == 'NONE':
+                                df.iloc[i, df.columns.get_loc('score')] = 'None'
+                            else:
+                                df.iloc[i, df.columns.get_loc('score')] = int(new_score)
+                                if row.type == 'ride':
+                                    from packages.landlord.functions import score
+                                else:
+                                    from packages.landlord.functions import score
+                                score(row.service_id, int(new_score))
+                                # call score function based on type and pass service id and new score to it
+                    df.to_csv('./data/services.csv', index = False)
+                    print('\n\n\t\tDone!!\n\n')
+        else:
+            if show:
+                print('\n\nThere is not any un-scored services in your profile. :)\n\n')
+        sleep(2)
         clear_console()
 
         # --------------------------------------------------------------------------------------
@@ -118,7 +116,7 @@ class Tourist():
         destination_dates = np.array([])
         total_price = 0
         # inp("Do you have your own car (y/n)? ", "y/n: ", convert = lambda el: el.upper(), key = lambda el: el in ['Y', 'N'])
-        if 'y' == "N":
+        if 'N' == "N":
             i = 0
             while i < len(trip):
                 if i < len(trip) - 1:
@@ -126,7 +124,6 @@ class Tourist():
                         self['national_id'], trip[i], trip[i+1], no_passengers, start_dates, destination_dates, new_services,  total_price
                     )
                     if status == 400: return False
-                    if status == 300: continue
                 if i > 0:
                     status, new_services, total_price = request_residence(
                         self['national_id'], trip[i], destination_dates[i-1], start_dates[i], no_passengers, total_price, new_services

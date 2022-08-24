@@ -1,0 +1,2 @@
+id,moving_service_id,type,capacity,starting_city,destination_city,start_datatime,rent,avg_speed,score,num_score
+sV1,9876543210,Bus,18,I,T,1661351400,1000,20,None,0

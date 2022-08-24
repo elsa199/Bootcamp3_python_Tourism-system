@@ -32,12 +32,14 @@ def request_residence(tourist_nid, city, start_date, end_date, no_passengers, to
 
 def residence_search(tourist_nid:str, city:str, duration:int, no_passengers:int):
     residences = pd.read_csv('./data/residences.csv', dtype=str)
-    fit_residences = residences[
-        [int(el) >= no_passengers  for el in residences.capacity] and
-        [el == city for el in residences.address] and
-        [el  == '0' for el in residences.reserved]
-    ]
 
+
+    fit_residences = residences[
+        ([int(el) >= no_passengers  for el in residences.capacity]) &
+        ([el == city for el in residences.address]) &
+        ([el  == '0' for el in residences.reserved])
+    ]
+    
     if fit_residences.size:
         ids = []
         for _, row in fit_residences.iterrows():
@@ -67,7 +69,7 @@ def residence_search(tourist_nid:str, city:str, duration:int, no_passengers:int)
         fit_landlord_data = landlords[landlords.national_id == fit_landlord_id]
 
         from packages.landlord.Landlord import Landlord
-        fit_landlord = Landlord(fit_landlord_data.username,fit_landlord_data.password, fit_landlord_data.first_name,fit_landlord_data.last_name,fit_landlord_data.national_id,fit_landlord_data.tel)
+        fit_landlord = Landlord(fit_landlord_data.username[0],fit_landlord_data.password[0], fit_landlord_data.first_name[0],fit_landlord_data.last_name[0],fit_landlord_data.national_id[0],fit_landlord_data.tel[0])
         while True:
             try:
                 withdraw(tourist_nid, price)
@@ -89,8 +91,8 @@ def residence_search(tourist_nid:str, city:str, duration:int, no_passengers:int)
                         print("FAILD!!! Automatice canceling process.")
                         sleep(3)
                         return [400, 0, 0, 0]
-                if confirm == 'change': return [300, 0, 0, 0]
-                elif confirm == 'cancel': return [400, 0, 0, 0]
+                if what_to_do == 'change': return [300, 0, 0, 0]
+                elif what_to_do == 'cancel': return [400, 0, 0, 0]
         
         return [200, id, fit_residences[fit_residences.id == id].type[0], price]
     else:

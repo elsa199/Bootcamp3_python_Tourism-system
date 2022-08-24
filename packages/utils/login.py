@@ -21,4 +21,7 @@ def login(inputs):
         return Admin(**user)
     if inputs['type'] == 'landlord':
         from packages.landlord.Landlord import Landlord
-        return Admin(**user)
+        return Landlord(**user)
+    if inputs['type'] == 'driver':
+        from packages.driver.moving_service import Intercity_services
+        return Intercity_services(**user)

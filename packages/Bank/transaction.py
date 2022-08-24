@@ -2,7 +2,7 @@ import pandas as pd
 
 def withdraw(id, price):
     accounts= pd.read_csv('./data/accounts.csv', dtype=str)
-    balance= float(accounts.loc[accounts[accounts['owner_id'] == '0123456789'].index[0], 'deposit'])
+    balance= float(accounts.loc[accounts[accounts['owner_id'] == id].index[0], 'deposit'])
     if balance >= price:
         balance -= price
         accounts.loc[(accounts['owner_id']== id), 'deposit']= balance
@@ -12,7 +12,7 @@ def withdraw(id, price):
 
 def deposit(id,price):
     accounts = pd.read_csv('./data/accounts.csv', dtype=str)
-    balance = float(accounts.loc[accounts[accounts['owner_id'] == '0123456789'].index[0], 'deposit'])
+    balance = float(accounts.loc[accounts[accounts['owner_id'] == id].index[0], 'deposit'])
     if price <= 10000000.0:
         balance += price
         accounts.loc[(accounts['owner_id']== id), 'deposit'] = balance
