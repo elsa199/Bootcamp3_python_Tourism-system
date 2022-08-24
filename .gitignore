@@ -1,2 +1,11 @@
 .venvGA_PROJECT
 bootcamp_venv
+__pycache__/
+*.py[cod]
+*$py.class
+.vscode/
+.vscode/*
+restart.txt
+.pytest_cache
+.mypy_cache
+.idea/*

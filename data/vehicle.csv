@@ -1,0 +1,2 @@
+Id,national_id,type_vehivle,capacity,starting_city,destination_city,Start_datatime,end_datetime,rent,avg_speed,avg_Score,num_score
+1,1234567891,car,4,Tehran,Kerman,100000,90,0,0
