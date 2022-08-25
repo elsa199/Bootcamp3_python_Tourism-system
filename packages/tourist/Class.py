@@ -61,9 +61,10 @@ class Tourist():
         # --------------------------------------------------------------------------------------
     def score(self, show = True):
         df = pd.read_csv('./data/services.csv', dtype=str)
-        if df.isna().sum().sum():
+        df_chek = df[df['tourist_nid'] == self['national_id']]
+        if df_chek.isna().sum().sum():
             if not show:
-                flag = inp("Do you want to score your previous services (y/n)? ", "y/n: ", key = lambda el: el.upper() in ['Y', 'N']).upper() == 'Y'
+                flag = inp("Do you want to score your previous services (y/n)? ", "(y/n): ", key = lambda el: el.upper() in ['Y', 'N']).upper() == 'Y'
             else: flag = True
             if flag:
                     print("\n  **  Type cancel to terminate scoring, type none to don't give score to a service.\n")
