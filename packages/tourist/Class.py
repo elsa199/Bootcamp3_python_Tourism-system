@@ -96,9 +96,9 @@ class Tourist():
     def travel(self):
         from packages.utils.points import load_cities_data
         cities, distances = load_cities_data()
-        print('\n')
+        print()
         print(*[f'{el}: {index + 1}' for index, el in enumerate(cities)], sep=" -=- ", end='\n\n')
-        start, cities, distances = start_finder(self['address'], cities, distances)
+        start = start_finder(self['address'], cities)
         trip = inp(
             'Please enter your visiting cities as a sequence (e.g. 1 2 3): ',
             f'Please enter a valid sequence of numbers between 1 and {len(cities)}, also dont enter your start city: ',
@@ -107,12 +107,12 @@ class Tourist():
         )
         trip, best_distance = ga(cities, distances, trip, start)
         clear_console()
-        no_passengers = 2# inp(
-        #     'How many passenger are you (or you can type "cancel")? ', 'Enter a positive number: ',
-        #     key=lambda el: el.isnumeric() and int(el) > 0 or el == 'cancel'
-        # )
-        # if no_passengers == 'cancel': return False
-        # else: no_passengers = int(no_passengers)
+        no_passengers = inp(
+            'How many passenger are you (or you can type "cancel")? ', 'Enter a positive number: ',
+            key=lambda el: el.isnumeric() and int(el) > 0 or el == 'cancel'
+        )
+        if no_passengers == 'cancel': return False
+        else: no_passengers = int(no_passengers)
 
         new_services = pd.DataFrame(
                 columns=['id','tourist_nid','service_id','type','service','starting_city','destination_city','start','end','price']
@@ -120,8 +120,10 @@ class Tourist():
         start_dates = np.array([])
         destination_dates = np.array([])
         total_price = 0
-        # inp("Do you have your own car (y/n)? ", "y/n: ", convert = lambda el: el.upper(), key = lambda el: el in ['Y', 'N'])
-        if 'N' == "N":
+
+
+
+        if inp("Do you have your own car (y/n)? ", "y/n: ", convert = lambda el: el.upper(), key = lambda el: el in ['Y', 'N']) == "N":
             i = 0
             while i < len(trip):
                 if i < len(trip) - 1:
@@ -150,6 +152,8 @@ class Tourist():
                 start_dates = np.append(start_dates, start_date)
                 destination_dates = np.append(destination_dates, destination_date)
                 i += 1
+
+                
         update_services(new_services)
         clear_console()
         print('!!! You registerd for a travel !!!')

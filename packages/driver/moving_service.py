@@ -1,8 +1,11 @@
 import pandas as pd
+from packages.utils.points import load_cities_data
 from packages.common.generators import id_generator
 from packages.common.input import inp
 from packages.Bank.transaction import deposit
 from packages.tourist.functions import gimmedates
+from packages.common.clear import clear_console
+
 
 class Intercity_services():
 
@@ -29,21 +32,16 @@ class Intercity_services():
     def reservation(self, service_id, num):
 
         vehicles = pd.read_csv('./data/vehicles.csv', dtype=str)
-        print(vehicles)
         i = vehicles[vehicles.id == service_id].index 
-        print(i)
 
         capacity = int(vehicles.iloc[i[0], vehicles.columns.get_loc('capacity')])
-        print(capacity)
         vehicles.iloc[i[0], vehicles.columns.get_loc('capacity')] = capacity - num
-        print(vehicles)
         vehicles.to_csv('./data/vehicles.csv', index=False)
 
         rent = float(vehicles.iloc[i[0], vehicles.columns.get_loc('rent')])
         price = rent * num
 
         deposit(self.national_id, price) 
-        print(123123)
         return
     
     def registeration(self): 
@@ -54,8 +52,13 @@ class Intercity_services():
                 key = lambda el: el in self['types']
             )
         capacity = inp("What is the capacity of your vehicle? ", "Please enter a number: ", key = lambda el: el.isnumeric())
-        starting_city = inp("Where is the origin of your movement? ", "Please enter a city: ",convert = lambda el: el.title())
-        destination_city = inp("Where is your destination? ", "Please enter a city: ", convert = lambda el: el.title())
+        clear_console()
+        addresses = load_cities_data(just='cities')
+        print('\n !! Please pick your city only from this list of cities that we provide service in !!:')
+        print(' - '.join(addresses))
+        starting_city = inp("Where is the origin of your movement? ", "Please enter a city: ",convert = lambda el: el.title(), key = lambda el: el in addresses)
+        destination_city = inp("Where is your destination? ", "Please enter a city: ", convert = lambda el: el.title(), key = lambda el: el in addresses)
+        clear_console()
 
         start_datatime =  gimmedates(starting_city)
 

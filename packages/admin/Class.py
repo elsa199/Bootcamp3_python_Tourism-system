@@ -1,3 +1,4 @@
+from packages.common.clear import clear_console
 from packages.common.input import inp
 class Admin():
     def __init__(
@@ -16,6 +17,6 @@ class Admin():
     def add_city(self):
         from packages.utils.points import update_cities_data, load_cities_data
         cities, distances = load_cities_data()
-        new_city = inp('Enter your new city: ', "Don't leave it empty: ")
+        new_city = inp('Enter your new city: ', "Don't leave it empty: ", convert = lambda el: el.title())
         cities, distances = update_cities_data(cities, distances, new_city)
-        return
+        return clear_console
