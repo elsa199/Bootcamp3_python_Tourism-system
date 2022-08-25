@@ -1,9 +1,12 @@
 # Bootcamp3_python
 Tourism-system
-## install requirements
+
+## install requirements:
 ### $ pip install -r requirements.txt
 
-## Start the program
+
+## how Start the program:
+
 ### Way 1:
 #### python app.py
 ### Way 2:
