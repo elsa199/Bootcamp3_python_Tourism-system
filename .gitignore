@@ -1,4 +1,5 @@
 .venvGA_PROJECT
 bootcamp_venv
 
-__pycache__/
+*__pycache__/
+*.pyc

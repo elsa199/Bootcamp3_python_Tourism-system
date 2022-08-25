@@ -35,10 +35,10 @@ def request_transition(tourist_nid, start_city, destination_city, no_passengers,
 
 def vehicle_search(tourist_nid:str, start_city:str, end_city:int,  number: int, s_datatime):
 
-    vehicles = pd.read_csv('./data/vehicles.csv', dtype=str)
+    vehicles = pd.read_csv('data/vehicles.csv', dtype=str)
     vehicles.drop(vehicles[vehicles['capacity'] == '0'].index, inplace=True)
     vehicles.drop(vehicles[[float(el) <= mktime(localtime()) for el in vehicles.start_datatime]].index, inplace=True)
-    vehicles.to_csv('./data/vehicles.csv', index=False)
+    vehicles.to_csv('data/vehicles.csv', index=False)
     print(vehicles.starting_city)
     
     local_s_datatime = localtime(s_datatime)
@@ -75,7 +75,7 @@ def vehicle_search(tourist_nid:str, start_city:str, end_city:int,  number: int, 
             price = float(fit_vehicles[fit_vehicles.id == id].rent[0]) * number
             fit_moving_service_id = fit_vehicles[fit_vehicles.id == id].moving_service_id[0]
         
-        moving_services = pd.read_csv('./data/drivers.csv', dtype=str)
+        moving_services = pd.read_csv('data/drivers.csv', dtype=str)
         fit_moving_service_data = moving_services[moving_services.national_id == fit_moving_service_id]
 
         from packages.driver.moving_service import Intercity_services

@@ -22,11 +22,11 @@ class Landlord():
        
     def reservation(self, residence_id, duration):
         
-        residences = pd.read_csv('./data/residences.csv', dtype=str)
+        residences = pd.read_csv('data/residences.csv', dtype=str)
         i = residences[residences.id == residence_id].index
 
         residences.iloc[i[0], residences.columns.get_loc('reserved')] = '1'
-        residences.to_csv('./data/residences.csv', index=False)
+        residences.to_csv('data/residences.csv', index=False)
         
         rent = float(residences.iloc[i[0], residences.columns.get_loc('rent')])
         price = rent * duration
@@ -45,14 +45,14 @@ class Landlord():
         address = inp("Enter your residence city: ", "Don't leave it empty: ", convert = lambda el: el.title())
         capacity = inp("How many people can stay in your residence: ", "Please enter a number: ", key = lambda el: el.isnumeric())
         rent = inp("How much it costs to rent your residence for one night: ", "Please enter a number: ", key = lambda el: el.isnumeric())
-        df = pd.read_csv('./data/residences.csv', dtype=str)
+        df = pd.read_csv('data/residences.csv', dtype=str)
         id = id_generator([el for el in df.id])
         new_residence = pd.DataFrame(
             [[id, self['national_id'], type, address, capacity, rent, '0', 'None', '0']],
             columns=['id','landlord_id','type','address','capacity','rent','reserved','score','no_scores']
         )
         df = pd.concat([df, new_residence], axis=0, ignore_index=True)
-        df.to_csv('./data/residences.csv', index=False)
+        df.to_csv('data/residences.csv', index=False)
 
 
 

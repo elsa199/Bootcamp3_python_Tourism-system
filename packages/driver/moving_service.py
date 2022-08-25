@@ -28,7 +28,7 @@ class Intercity_services():
 
     def reservation(self, service_id, num):
 
-        vehicles = pd.read_csv('./data/vehicles.csv', dtype=str)
+        vehicles = pd.read_csv('data/vehicles.csv', dtype=str)
         print(vehicles)
         i = vehicles[vehicles.id == service_id].index 
         print(i)
@@ -37,7 +37,7 @@ class Intercity_services():
         print(capacity)
         vehicles.iloc[i[0], vehicles.columns.get_loc('capacity')] = capacity - num
         print(vehicles)
-        vehicles.to_csv('./data/vehicles.csv', index=False)
+        vehicles.to_csv('data/vehicles.csv', index=False)
 
         rent = float(vehicles.iloc[i[0], vehicles.columns.get_loc('rent')])
         price = rent * num
@@ -64,7 +64,7 @@ class Intercity_services():
         avg_speed = inp("Please enter the average speed of your vehicle (in km/h)? ", "Please enter a number: ", key = lambda el: el.isnumeric())
 
 
-        df = pd.read_csv('./data/vehicles.csv', dtype=str)
+        df = pd.read_csv('data/vehicles.csv', dtype=str)
         id = id_generator(df.id.tolist())
 
         new_vehicle= pd.DataFrame(
@@ -75,7 +75,7 @@ class Intercity_services():
             )
 
         df = pd.concat([df, new_vehicle], axis=0, ignore_index=True)
-        df.to_csv('./data/vehicles.csv', index=False) 
+        df.to_csv('data/vehicles.csv', index=False) 
   
 
 

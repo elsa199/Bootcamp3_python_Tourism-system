@@ -27,8 +27,8 @@ def calc_duration(start_date, end_date, st_count_clock: str, ed_count_clock: str
 
 
 def calc_arrive_date(starting_city,destination_city,start_datatime,avg_speed):
-        cities = pd.read_csv('./data/cities.csv', header=None)
-        distances = pd.read_csv('./data/distances.csv', header=None)
+        cities = pd.read_csv('data/cities.csv', header=None)
+        distances = pd.read_csv('data/distances.csv', header=None)
         start_index = cities[cities[0] == starting_city].index[0]
         destination_index = cities[cities[0] == destination_city].index[0]
         distance = distances[start_index][destination_index]

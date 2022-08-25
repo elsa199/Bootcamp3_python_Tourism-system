@@ -31,7 +31,7 @@ def request_residence(tourist_nid, city, start_date, end_date, no_passengers, to
 
 
 def residence_search(tourist_nid:str, city:str, duration:int, no_passengers:int):
-    residences = pd.read_csv('./data/residences.csv', dtype=str)
+    residences = pd.read_csv('data/residences.csv', dtype=str)
 
 
     fit_residences = residences[
@@ -65,7 +65,7 @@ def residence_search(tourist_nid:str, city:str, duration:int, no_passengers:int)
             price = float(fit_residences[fit_residences.id == id].rent[0]) * duration
             fit_landlord_id = fit_residences[fit_residences.id == id].landlord_id[0]
         
-        landlords = pd.read_csv('./data/landlords.csv', dtype=str)
+        landlords = pd.read_csv('data/landlords.csv', dtype=str)
         fit_landlord_data = landlords[landlords.national_id == fit_landlord_id]
 
         from packages.landlord.Landlord import Landlord
@@ -122,5 +122,5 @@ def score(residence_id, new_score):
     residences.iloc[i[0], residences.columns.get_loc('score')] = score + (new_score/(no_scores+1))
 
 
-    residences.to_csv('./data/residences.csv', index=False)
+    residences.to_csv('data/residences.csv', index=False)
     return

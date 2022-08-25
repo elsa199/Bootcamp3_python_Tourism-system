@@ -13,6 +13,9 @@ from packages.utils.updates import update_services
 from packages.Bank.transaction import deposit
 
 class Tourist():
+    """_summary_
+    """
+    
     def __init__(
         self, username: str, password: str, national_id: str, tel: str, address: str, first_name: str, last_name: str,
         account: dict = {}, active_services: list = [], travels: list = [], **kwargs
@@ -46,8 +49,8 @@ class Tourist():
             return False
 
     def show_services(self):
-        services = pd.read_csv('.data/services.csv', dtype=str)
-        active_services = pd.read_csv('.data/active_services.csv')
+        services = pd.read_csv('data/services.csv', dtype=str)
+        active_services = pd.read_csv('data/services.csv')
         all_services = pd.concat([services, active_services], axis = 0, ignore_index=True)
         fit_all_service = all_services.loc[(all_services["tourist_nid"] == self['national_id'])]
         print("All the services you have used so far:")
@@ -60,7 +63,7 @@ class Tourist():
 
         # --------------------------------------------------------------------------------------
     def score(self, show = True):
-        df = pd.read_csv('./data/services.csv', dtype=str)
+        df = pd.read_csv('data/services.csv', dtype=str)
         if df.isna().sum().sum():
             if not show:
                 flag = inp("Do you want to score your previous services (y/n)? ", "y/n: ", key = lambda el: el.upper() in ['Y', 'N']).upper() == 'Y'
@@ -89,7 +92,7 @@ class Tourist():
                                     from packages.landlord.functions import score
                                 score(row.service_id, int(new_score))
                                 # call score function based on type and pass service id and new score to it
-                    df.to_csv('./data/services.csv', index = False)
+                    df.to_csv('data/services.csv', index = False)
                     print('\n\n\t\tDone!!\n\n')
         else:
             if show:

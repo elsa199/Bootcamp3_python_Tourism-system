@@ -1,7 +1,14 @@
 import os
 import sys
 
-def clear_console(flag: int = 1):
+
+def clear_console(flag: int = 1) -> None:
+    """clear console
+
+    Args:
+        flag (int, optional): _description_. Defaults to 1.
+    """
+
     if sys.platform in ['win32', 'cygwin']:
         os.system('cls')
     elif sys.platform in ['linux', 'darwin']:

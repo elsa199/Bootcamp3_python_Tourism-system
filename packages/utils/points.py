@@ -3,8 +3,8 @@ import pandas as pd
 from packages.common.input import inp
 
 def load_cities_data():
-    cities = [el[0] for el in pd.read_csv('./data/cities.csv', header=None).values.tolist()]
-    distances = pd.read_csv('./data/distances.csv', header=None)
+    cities = [el[0] for el in pd.read_csv('data/cities.csv', header=None).values.tolist()]
+    distances = pd.read_csv('data/distances.csv', header=None)
     return [cities, distances]
 
 
@@ -27,8 +27,8 @@ def update_cities_data(cities: list, distances, address):
     distances = pd.concat([distances, pd.Series(temp)], axis = 1, ignore_index=True)
     for i in range(len(cities)):
         distances[i] = distances[i].replace([np.nan], temp[i])
-    distances.to_csv('./data/distances.csv', header=None, index= False)
+    distances.to_csv('data/distances.csv', header=None, index= False)
     cities.append(address)
-    pd.DataFrame(cities).to_csv('./data/cities.csv', header=None, index= False)
+    pd.DataFrame(cities).to_csv('data\cities.csv', header=None, index= False)
     return [cities, distances]
     
