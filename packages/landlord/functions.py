@@ -31,15 +31,25 @@ def request_residence(tourist_nid, city, start_date, end_date, no_passengers, to
 
 
 def residence_search(tourist_nid:str, city:str, duration:int, no_passengers:int):
+
     residences = pd.read_csv('./data/residences.csv', dtype=str)
 
 
-    fit_residences = residences[
-        ([int(el) >= no_passengers  for el in residences.capacity]) &
-        ([el == city for el in residences.address]) &
-        ([el  == '0' for el in residences.reserved])
-    ]
+    # fit_residences = residences[
+    #     ([int(el) >= no_passengers  for el in residences.capacity]) &
+    #     ([el == city for el in residences.address]) &
+    #     ([el  == '0' for el in residences.reserved])
+    # ]
+
+    # fit_residences = residences.loc[
+    #     (int(el) >= no_passengers  for el in residences.capacity) &
+    #     (el == city for el in residences.address) &
+    #     (el  == '0' for el in residences.reserved)
+    # ]
     
+    fit_residences = residences.loc[(residences['address']== city) & (residences['reserved']== 0) & 
+                     (int(residences['capacity']) >= no_passengers)]
+
     if fit_residences.size:
         ids = []
         for _, row in fit_residences.iterrows():
