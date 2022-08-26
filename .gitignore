@@ -1,2 +1,5 @@
 .venvGA_PROJECT
 bootcamp_venv
+
+__pycach__
+*pyc
