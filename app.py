@@ -1,8 +1,5 @@
-from packages.common.clear import clear_console
-from packages.tourist.Class import Tourist
-from packages.admin.Class import Admin
-from packages.landlord.Landlord import Landlord
-from packages.driver.moving_service import Intercity_services
+from packages import Tourist, Admin, Landlord, Intercity_services
+from packages.common import clear_console
 from packages.utils.env import main as initialize
 from packages.utils.login import login
 clear_console(0)
