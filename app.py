@@ -6,7 +6,7 @@ from packages.driver.moving_service import Intercity_services
 from packages.utils.env import main as initialize
 from packages.utils.login import login
 from loguru import logger
-import sys
+import sysregiste
 
 clear_console(0)
 
