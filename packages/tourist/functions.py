@@ -5,32 +5,17 @@ from time import time, gmtime, localtime, mktime, strftime
 from calendar import timegm
 from datetime import date
 
-def start_finder(address, cities, distances):
-    flag = True
-    try:
-        if inp(f'Are you in your home town, {address} (y/n)?', '(y/n)? ', key=lambda el: el.upper() in ['Y', 'N']).upper()  == 'N':
-            if inp('Do we have your current city in the list (y/n)?', '(y/n)? ', key=lambda el: el.upper() in ['Y', 'N']).upper() == 'Y':
-                start = inp(
-                    "First please enter city code in which you are: ",
-                    f"Please enter a valid number between 1 and {len(cities)}: ",
-                    convert=int,
-                    key=lambda el: el > 0 and el <= len(cities)
-            )
-            else:
-                flag = False
-                raise Exception()
-        else: raise Exception()
-    except Exception:
-        try:
-            if flag:
-                search = address
-                start = cities.index(search) + 1
-            else:
-                raise Exception()
-        except Exception:
-            print("\n       ----> Not recognized home city <----\n")
-            cities, distances = update_cities_data(cities, distances, address)
-    return [start, cities, distances]
+def start_finder(address, cities):
+    if inp(f'Are you in your home town, {address} (y/n)?', '(y/n)? ', key=lambda el: el.upper() in ['Y', 'N']).upper()  == 'N':
+            start = inp(
+                "Please enter city code in which you are: ",
+                f"Please enter a valid number between 1 and {len(cities)}: ",
+                convert=int,
+                key=lambda el: el > 0 and el <= len(cities)
+        )
+    else:
+        start = cities.index(address) + 1
+    return start
 
 
 def gimmedates(trip, check_dates = [], state = 'leaving', check = True):

@@ -2,7 +2,8 @@ import pandas as pd
 from packages.common.generators import id_generator
 from packages.common.input import inp
 from packages.Bank.transaction import  deposit
-
+from packages.utils.points import load_cities_data
+from packages.common.clear import clear_console
 
 class Landlord():
     types = ['Hotel', 'Apartment', 'Motel', 'Inn','Room', 'Villa']
@@ -42,7 +43,12 @@ class Landlord():
             convert = lambda el: el.title(),
             key = lambda el: el in self['types']
         )
+        clear_console()
+        addresses = load_cities_data(just='cities')
+        print('\n !! Please pick your city only from this list of cities that we provide service in !!:')
+        print(' - '.join(addresses))
         address = inp("Enter your residence city: ", "Don't leave it empty: ", convert = lambda el: el.title())
+        clear_console()
         capacity = inp("How many people can stay in your residence: ", "Please enter a number: ", key = lambda el: el.isnumeric())
         rent = inp("How much it costs to rent your residence for one night: ", "Please enter a number: ", key = lambda el: el.isnumeric())
         df = pd.read_csv('./data/residences.csv', dtype=str)

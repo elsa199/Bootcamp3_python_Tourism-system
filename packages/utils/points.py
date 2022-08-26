@@ -2,10 +2,12 @@ import numpy as np
 import pandas as pd
 from packages.common.input import inp
 
-def load_cities_data():
+def load_cities_data(just: str = 'both'):
     cities = [el[0] for el in pd.read_csv('./data/cities.csv', header=None).values.tolist()]
+    if just == 'cities': return cities
     distances = pd.read_csv('./data/distances.csv', header=None)
-    return [cities, distances]
+    if just == 'distances': return distances
+    if just == 'both': return [cities, distances]
 
 
 def update_cities_data(cities: list, distances, address):

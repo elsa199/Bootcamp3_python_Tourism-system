@@ -76,7 +76,7 @@ def residence_search(tourist_nid:str, city:str, duration:int, no_passengers:int)
                 fit_landlord.reservation(id, duration)
                 break
             except:
-                print('\n# # You dont have enough money. # #')
+                print('\n# # You dont have enough money. # #\n')
                 what_to_do = inp(
                     "- To deposit more money and try again: deposit\n- To change the dates you entered: change\n- To cancel the travel: cancel\n(deposit/cancel/change): ",
                     "Invalid input. Enter again: ",
