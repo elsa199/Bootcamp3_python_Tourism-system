@@ -22,6 +22,12 @@ class Landlord():
         return getattr(self,key)
        
     def reservation(self, residence_id, duration):
+        """reservation is a method of Landlord that can reserve a residence of targeted Landlord and deposit the price to his/her account.
+
+        Args:
+            residence_id (str): id of specified service
+            duration (int): number of days that tourists are staying
+        """
         
         residences = pd.read_csv('./data/residences.csv', dtype=str)
         i = residences[residences.id == residence_id].index
@@ -37,6 +43,9 @@ class Landlord():
 
     
     def registeration(self):
+        """registeration method of Landlord registers a new service for the called Landlord.
+
+        """
         type = inp(
             f'{" - ".join(self["types"])}\nEnter your residence type between these items: ',
             "Please enter correctly: ",

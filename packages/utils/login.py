@@ -1,6 +1,14 @@
 import pandas as pd
 
 def login(inputs):
+    """login checks inputed username and password based on inputed type and if existed, returns the respossible object.
+
+    Args:
+        inputs (dict): A dictionary containing 'username', 'password' and 'type' keys.
+
+    Returns:
+        Any: Returns False if user not found. In case user entered correct username and password, it returns the instanced type of entered user type.
+    """
     users = pd.read_csv(f'./data/{inputs["type"]}s.csv', dtype=str)
     while True:
         # Check username and password initialize(True)

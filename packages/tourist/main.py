@@ -4,6 +4,15 @@ from packages.common.input import inp
 
 
 def main(commands: list, tourist):
+    """main function is the route of Tourist APIs.
+
+    This main funciton controls and guids the commands which an Tourist can use. It takes the an instance of targeted Tourist.
+
+    Args:
+        commands (list): A nested list containing: list[0] is a list of commands themselves and list[1] is a list of callback functions.
+        If commands are a single list, main function considers the defaulted callback functions.
+        admin (Tourist): targeted Tourist returned from logging in.
+    """
     tourist.score(False)
 
 

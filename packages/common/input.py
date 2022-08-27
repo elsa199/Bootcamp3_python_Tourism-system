@@ -3,7 +3,30 @@ import sys
 from packages.common.clear import clear_console
 
 def __inputDeco(inpFunc):
+    """__inputDeco Re-creates an input function with new abilities.
+
+    Returned input function has ability to convert and use key functions to check validity of inputed value.
+
+    Args:
+        inpFunc (function): takes the original input function.
+    """
     def newFunc(prompt:str = "Please enter your input: ", reprompr:str = "Please enter a valid input: ", **kwarg: dict):
+        """newFunc is a new input function.
+
+        _extended_summary_
+
+        Args:
+            prompt (str, optional): The prompt string. Defaults to "Please enter your input: ".
+            reprompr (str, optional): The re prompt string which user is prompted when entering wrong value. Defaults to "Please enter a valid input: ".
+            convert (list | function): A list of functions or a funciton that inputed value should be converted to.
+            key (list | function): A list of functions or a function that returns a True value when inputed value passes a validation. e.g.: lambda el: el > 0
+
+        Raises:
+            Exception: If use key arg before convert arg.
+
+        Returns:
+            Any: Validated input.
+        """
         '''key = a list of appling keys to output : list
         convert = a data type to convert output into it.'''
         try:
