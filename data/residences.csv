@@ -1,2 +1,10 @@
 id,landlord_id,type,address,capacity,rent,reserved,score,no_scores
 sad,0123456789,Hotel,Tehran,10,1000,0,None,0
+8lI,3252354223,Hotel,Shiraz,30,300000,0,None,0
+jis,3252354223,Room,Isfahan,2,300000,0,None,0
+pPS,3252354223,Villa,Gheshm,10,1000000,0,None,0
+oxF,3252354223,Apartment,Save,50,400000,0,None,0
+bjX,3252354223,Inn,Kerman,30,200000,0,None,0
+gNF,3252354223,Motel,Babol,35,230000,0,None,0
+6cE,3252354223,Hotel,Kermanshah,90,600000,0,None,0
+Uoi,4678345678,Motel,Zahedan,19,170000,0,None,0
