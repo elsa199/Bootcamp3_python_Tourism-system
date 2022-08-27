@@ -25,7 +25,7 @@ def register(): # Update and add to database
         address = inp('Please enter your home city: ', 'Pick correctly: ', convert = lambda el: el.title(), key = lambda el: el in addresses)
         clear_console()
         nid = inp('Please enter your national id number: ', 'Must be 10 characters and be a number: ', key = lambda el: len(el) == 10 and el.isnumeric())
-        tel = inp('Please enter your telephone number: ', 'Must has atleast 3 characters and be a number: ', key = lambda el: len(el) >= 3 and el.isnumeric())
+        tel = inp('Please enter your telephone number: ', 'Must has atleast 10 characters and be a number: ', key = lambda el: len(el) >= 10 and el.isnumeric())
         new_user = pd.DataFrame([[
             u,p,first_name,last_name,address,nid,tel]],
             columns=['username','password','first_name','last_name','address','national_id','tel']
@@ -34,7 +34,7 @@ def register(): # Update and add to database
         first_name = inp('Please enter your first name: ', 'Must has atleast 3 characters: ', key = lambda el: len(el) >= 3)
         last_name = inp('Please enter your last name: ', 'Must has atleast 3 characters: ', key = lambda el: len(el) >= 3)
         nid = inp('Please enter your national id number: ', 'Must be 10 characters and be a number: ', key = lambda el: len(el) == 10 and el.isnumeric())
-        tel = inp('Please enter your telephone number: ', 'Must has atleast 3 characters and be a number: ', key = lambda el: len(el) >= 3 and el.isnumeric())
+        tel = inp('Please enter your telephone number: ', 'Must has atleast 10 characters and be a number: ', key = lambda el: len(el) >= 10 and el.isnumeric())
         new_user = pd.DataFrame([[
             u,p,first_name,last_name,nid,tel]],
             columns=['username','password','first_name','last_name','national_id','tel']
@@ -43,7 +43,7 @@ def register(): # Update and add to database
         first_name = inp('Please enter your first name: ', 'Must has atleast 3 characters: ', key = lambda el: len(el) >= 3)
         last_name = inp('Please enter your last name: ', 'Must has atleast 3 characters: ', key = lambda el: len(el) >= 3)
         nid = inp('Please enter your national id number: ', 'Must be 10 characters and be a number: ', key = lambda el: len(el) == 10 and el.isnumeric())
-        tel = inp('Please enter your telephone number: ', 'Must has atleast 3 characters and be a number: ', key = lambda el: len(el) >= 3 and el.isnumeric())
+        tel = inp('Please enter your telephone number: ', 'Must has atleast 10 characters and be a number: ', key = lambda el: len(el) >= 10 and el.isnumeric())
         new_user = pd.DataFrame([[
             u,p,first_name,last_name,nid,tel]],
             columns=['username','password','first_name','last_name','national_id','tel']
