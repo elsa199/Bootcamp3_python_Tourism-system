@@ -71,12 +71,6 @@ def residence_search(tourist_nid:str, city:str, duration:int, no_passengers:int)
     #     ([el == city for el in residences.address]) &
     #     ([el  == '0' for el in residences.reserved])
     # ]
-
-    # fit_residences = residences.loc[
-    #     (int(el) >= no_passengers  for el in residences.capacity) &
-    #     (el == city for el in residences.address) &
-    #     (el  == '0' for el in residences.reserved)
-    # ]
     
     fit_residences = residences.loc[(residences['address']== city) & (residences['reserved']== 0) & 
                      (int(residences['capacity']) >= no_passengers)]
