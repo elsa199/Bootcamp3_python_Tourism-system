@@ -9,7 +9,7 @@ from packages.common.clear import clear_console
 
 class Intercity_services():
 
-    types = ['Bus', 'Train', 'Plane', 'Won','Car']
+    types = ['Bus', 'Train', 'Plane', 'van','Car']
     def __init__(
         self, username: str, password: str, first_name: str, last_name: str,national_id: str, tel: str, **kwargs
     ) -> None: 

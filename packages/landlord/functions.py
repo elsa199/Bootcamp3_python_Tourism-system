@@ -4,6 +4,7 @@ from packages.common.clear import clear_console
 from packages.common.calculation import calc_duration
 from packages.common.input import inp
 from packages.Bank.transaction import withdraw, deposit
+import numpy as np
 
 def request_residence(tourist_nid, city, start_date, end_date, no_passengers, total_price, new_services):
     while True:
@@ -41,8 +42,8 @@ def residence_search(tourist_nid:str, city:str, duration:int, no_passengers:int)
     #     ([el  == '0' for el in residences.reserved])
     # ]
     
-    fit_residences = residences.loc[(residences['address']== city) & (residences['reserved']== 0) & 
-                     (int(residences['capacity']) >= no_passengers)]
+    # fit_residences = residences.loc[(residences['address']== city) & (residences['reserved']== 0) & (residences['capacity'] >= no_passengers)]
+    fit_residences = residences.loc[(residences['address']== city) & (residences['reserved']== 0) & (pd.to_numeric(residences.capacity, errors='coerce').fillna(0).astype(np.int64))]
 
     if fit_residences.size:
         ids = []
@@ -115,16 +116,18 @@ def residence_search(tourist_nid:str, city:str, duration:int, no_passengers:int)
 def score(residence_id, new_score):
     # Alter the residence file and add or average score
     residences = pd.read_csv('./data/residences.csv', dtype=str)
-    i = residences[residences.id == residence_id].index
+    # i = residences[residences.id == residence_id].index
+    i = residences[residences.landlord_id == residence_id].index
 
-    no_scores = int(residences.iloc[i[0], residences.columns.get_loc('no_scores')])
-    score = residences.iloc[i[0], residences.columns.get_loc('score')]
-    if score == 'None': score = 0
-    else: score = int(score)
+    if (i.size)!= 0:
+        no_scores = int(residences.iloc[i[0], residences.columns.get_loc('no_scores')])
+        score = residences.iloc[i[0], residences.columns.get_loc('score')]
+        if score == 'None': score = 0
+        else: score = int(score)
 
-    residences.iloc[i[0], residences.columns.get_loc('no_scores')] = no_scores + 1
-    residences.iloc[i[0], residences.columns.get_loc('score')] = score + (new_score/(no_scores+1))
+        residences.iloc[i[0], residences.columns.get_loc('no_scores')] = no_scores + 1
+        residences.iloc[i[0], residences.columns.get_loc('score')] = score + (new_score/(no_scores+1))
 
 
-    residences.to_csv('./data/residences.csv', index=False)
+        residences.to_csv('./data/residences.csv', index=False)
     return

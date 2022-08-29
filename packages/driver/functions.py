@@ -123,3 +123,22 @@ def vehicle_search(tourist_nid:str, start_city:str, end_city:int,  number: int, 
         if id.lower() == 'change': return [300, 0, 0, 0, 0]
         elif id.lower() == 'cancel': return [400, 0, 0, 0, 0]
         elif id.lower() == 'skip': return [500, 0, 0, 0, 0]
+
+def score(vehicle_id, new_score):
+    # Alter the vehicles file and add or average score
+    vehicles = pd.read_csv('./data/vehicles.csv', dtype=str)
+    # i = residences[residences.id == residence_id].index
+    i = vehicles[vehicles.moving_service_id == vehicle_id].index
+
+    if (i.size)!= 0:
+        no_scores = int(vehicles.iloc[i[0], vehicles.columns.get_loc('no_scores')])
+        score = vehicles.iloc[i[0], vehicles.columns.get_loc('score')]
+        if score == 'None': score = 0
+        else: score = int(score)
+
+        vehicles.iloc[i[0], vehicles.columns.get_loc('no_scores')] = no_scores + 1
+        vehicles.iloc[i[0], vehicles.columns.get_loc('score')] = score + (new_score/(no_scores+1))
+
+
+        vehicles.to_csv('./data/vehicles.csv', index=False)
+    return

@@ -46,8 +46,8 @@ class Tourist():
             return False
 
     def show_services(self):
-        services = pd.read_csv('.data/services.csv', dtype=str)
-        active_services = pd.read_csv('.data/active_services.csv')
+        services = pd.read_csv('data/services.csv', dtype=str)
+        active_services = pd.read_csv('data/active_services.csv')
         all_services = pd.concat([services, active_services], axis = 0, ignore_index=True)
         fit_all_service = all_services.loc[(all_services["tourist_nid"] == self['national_id'])]
         print("All the services you have used so far:")
@@ -85,7 +85,7 @@ class Tourist():
                             else:
                                 df.iloc[i, df.columns.get_loc('score')] = int(new_score)
                                 if row.type == 'ride':
-                                    from packages.landlord.functions import score
+                                    from packages.driver.functions import score
                                 else:
                                     from packages.landlord.functions import score
                                 score(row.service_id, int(new_score))
