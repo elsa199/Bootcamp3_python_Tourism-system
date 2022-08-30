@@ -7,6 +7,22 @@ from packages.Bank.transaction import withdraw, deposit
 import numpy as np
 
 def request_residence(tourist_nid, city, start_date, end_date, no_passengers, total_price, new_services):
+    """request_residence requests a residence based on enter and exit time, city and number of passengers.
+
+    Args:
+        tourist_nid (str): The tourist id
+        city (str): The city of residence
+        start_date (float): Room enter time in seconds format
+        destination_date (float): Room leave time in seconds format
+        no_passengers (int): The number of passengers
+        total_price (float): The total charged price
+        new_services (pd.DataFrame): A dataframe of new services that tourist picked till now
+
+    Returns:
+        list: In case the tourist completes the request, the function returns a list containing 200 status, updated new services, and total_price.
+        In case the tourist cancels the request it returns status 400 and the rest of the list.
+        In case the tourist decides to changes the dates, it returns status 400 and the rest of the list.
+    """
     while True:
         print(f"\n*** Search for residence services for you in {city}***\n")
         residence_start_date, residence_end_date, duration = calc_duration(start_date, end_date, '12:00', '14:00')
@@ -32,6 +48,21 @@ def request_residence(tourist_nid, city, start_date, end_date, no_passengers, to
 
 
 def residence_search(tourist_nid:str, city:str, duration:int, no_passengers:int):
+    """residence_search searchs for a residence service with specified conditions and reserve the fitted service which tourist picks.
+
+    This function also requests the responssible Landlord for reservation and it does the bank transaction related to tourist.
+
+    Args:
+        tourist_nid (str): The tourist id
+        city (str): The city of residence
+        s_datatime (float | int): Staying duration
+        number (int): The number of passengers
+
+    Returns:
+        list: In case the tourist completes the request, the function returns a list containing 200 status, updated new services, and total_price.
+        In case the tourist cancels the request it returns status 400 and the rest of the list.
+        In case the tourist decides to changes the dates, it returns status 400 and the rest of the list.
+    """
 
     residences = pd.read_csv('./data/residences.csv', dtype=str)
 

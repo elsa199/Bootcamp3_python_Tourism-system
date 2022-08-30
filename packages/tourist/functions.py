@@ -1,11 +1,18 @@
 from packages.common.input import inp, key_try_except
-from packages.utils.points import update_cities_data
 import numpy as np
-from time import time, gmtime, localtime, mktime, strftime
-from calendar import timegm
+from time import localtime, mktime
 from datetime import date
 
-def start_finder(address, cities):
+def start_finder(address: str, cities: list) -> str:
+    """start_finder prompts the tourist to find out the start city of a travel.
+
+    Args:
+        address (str): The home address entered by tourist when registered
+        cities (list): A list of database cities
+
+    Returns:
+        str: The start city
+    """
     if inp(f'Are you in your home town, {address} (y/n)?', '(y/n)? ', key=lambda el: el.upper() in ['Y', 'N']).upper()  == 'N':
             start = inp(
                 "Please enter city code in which you are: ",
@@ -18,7 +25,18 @@ def start_finder(address, cities):
     return start
 
 
-def gimmedates(trip, check_dates = [], state = 'leaving', check = True):
+def gimmedates(trip:list, check_dates:list = [], state: str = 'leaving', check = True)-> list:
+    """gimmedates prompts a tourist for a set of dates in 'YYYY MM DD hh:mm' format.
+
+    Args:
+        trip (list | str): A list of cities or just one city in string format
+        check_dates (list, optional): The list of pre dates that the new dates are checked with them. Defaults to [].
+        state (str, optional): state of tourist in respect of mentioned cities. Defaults to 'leaving'.
+        check (bool, optional): Do you wnat to check entered date and time at all? Defaults to True.
+
+    Returns:
+        list | int: A list of givven dates or just one entered date, both in seconds format.
+    """
     if not isinstance(trip, list): trip = [trip]
     if isinstance(check_dates, list): check_dates = np.array(check_dates)
     if check:

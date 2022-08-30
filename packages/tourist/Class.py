@@ -33,7 +33,12 @@ class Tourist():
         return getattr(self, key)
         # --------------------------------------------------------------------------------------
 
-    def deposit(self):
+    def deposit(self)->bool:
+        """deposit is used to deposit money in tourist account.
+
+        Returns:
+            bool: True or False for completion of transaction.
+        """
         amount = inp("How much do you want to deposit? ", "Enter a valid number: ", convert = int, key = lambda el: el>0)
         try:
             deposit(self['national_id'], amount)
@@ -46,8 +51,8 @@ class Tourist():
             return False
 
     def show_services(self):
-        services = pd.read_csv('data/services.csv', dtype=str)
-        active_services = pd.read_csv('data/active_services.csv')
+        services = pd.read_csv('.data/services.csv', dtype=str)
+        active_services = pd.read_csv('.data/active_services.csv')
         all_services = pd.concat([services, active_services], axis = 0, ignore_index=True)
         fit_all_service = all_services.loc[(all_services["tourist_nid"] == self['national_id'])]
         print("All the services you have used so far:")
@@ -59,7 +64,12 @@ class Tourist():
 
 
         # --------------------------------------------------------------------------------------
-    def score(self, show = True):
+    def score(self, show = True)-> None:
+        """score function starts the scoring system for done travels of a tourist.
+
+        Args:
+            show (bool, optional): The boolean value to ask a confirming question first. Defaults to True.
+        """
         df = pd.read_csv('./data/services.csv', dtype=str)
         df_chek = df[df['tourist_nid'] == self['national_id']]
         if df_chek.isna().sum().sum():
@@ -100,6 +110,13 @@ class Tourist():
 
         # --------------------------------------------------------------------------------------
     def travel(self):
+        """travel method is used to make a travel service for a tourist.
+
+        The travel function uses Genetic Algorithm to specify the route of the travel. Then it automatically finds services and reserve them for a tourist.
+
+        Returns:
+            None
+        """
         from packages.utils.points import load_cities_data
         cities, distances = load_cities_data()
         print()

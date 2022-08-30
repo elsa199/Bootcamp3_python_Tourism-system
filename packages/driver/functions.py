@@ -7,7 +7,23 @@ from packages.common.input import inp
 from packages.Bank.transaction import withdraw, deposit
 from packages.common.calculation import calc_arrive_date
 
-def request_transition(tourist_nid, start_city, destination_city, no_passengers, start_dates, destination_dates, new_services,  total_price):
+def request_transition(tourist_nid: str, start_city: str, destination_city: str, no_passengers: int, start_dates: np.ndarray, destination_dates: np.ndarray, new_services: pd.DataFrame,  total_price: float) -> list:
+    """request_transition requests a transition based on start and destination city and number of passengers.
+
+    Args:
+        tourist_nid (str): The tourist id
+        start_city (str): The starting city of transition
+        destination_city (str): The destination city of transition
+        no_passengers (int): The number of passengers
+        start_dates (np.ndarray): An array of start times in seconds format to add the new start date
+        destination_dates (np.ndarray): An array of destination times in seconds format to add the new destination date
+        new_services (pd.DataFrame): A dataframe of new services that tourist picked till now
+        total_price (float): The total charged price
+
+    Returns:
+        list: In case the tourist completes the request, the function returns a list containing 200 status, updated start times, updated destination times, updated new services, and total_price.
+        In case the tourist cancels the request it returns status 400 and the rest of the list.
+    """
     while True:
         print(f"\n*** Search for transition services for you from {start_city} to {destination_city}.***\n")
         start_date = gimmedates(start_city, destination_dates) # date of Leaving start_city
@@ -29,11 +45,26 @@ def request_transition(tourist_nid, start_city, destination_city, no_passengers,
             new_services = pd.concat([new_services, new_service], axis = 0, ignore_index=True)
             total_price += price
             clear_console()
-            return [200, start_date, destination_date, new_service, total_price]
+            return [200, start_dates, destination_dates, new_services, total_price]
             
 
 
-def vehicle_search(tourist_nid:str, start_city:str, end_city:int,  number: int, s_datatime):
+def vehicle_search(tourist_nid:str, start_city:str, end_city:int,  number: int, s_datatime: float) -> list:
+    """vehicle_search searchs for a transition service with specified conditions and reserve the fitted service which tourist picks.
+
+    This function also requests the responssible Intercity_services for reservation and it does the bank transaction related to tourist.
+
+    Args:
+        tourist_nid (str): The tourist id
+        start_city (str): The starting city of transition
+        end_city (int): The destination city of transition
+        number (int): The number of passengers
+        s_datatime (float): Travel start time in seconds format
+
+    Returns:
+        list: In case the tourist completes the request, the function returns a list containing 200 status, id of picked service, type of the service, the time which tourist arrives to the destination, and price of service.
+        In case the tourist cancels the request it returns status 400 and the rest of the list.
+    """
 
     vehicles = pd.read_csv('./data/vehicles.csv', dtype=str)
     vehicles.drop(vehicles[vehicles['capacity'] == '0'].index, inplace=True)

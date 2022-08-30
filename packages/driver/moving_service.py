@@ -8,6 +8,10 @@ from packages.common.clear import clear_console
 
 
 class Intercity_services():
+    """Intercity_services class is an user with Intercity services owner accessabilities.
+
+    Intercity_services can 'register vehicle' to the database and then thier vehicle may be 'reserved' as a service to many tourists.
+    """
 
     types = ['Bus', 'Train', 'Plane', 'van','Car']
     def __init__(
@@ -29,7 +33,13 @@ class Intercity_services():
 
   
 
-    def reservation(self, service_id, num):
+    def reservation(self, service_id: str, num: int) -> None:
+        """reservation is a method of Intercity_services that can reserve a vehicle of targeted Intercity_services and deposit the price to his/her account.
+
+        Args:
+            service_id (str): id of specified service
+            num (int): number of tourists to reserve
+        """
 
         vehicles = pd.read_csv('./data/vehicles.csv', dtype=str)
         i = vehicles[vehicles.id == service_id].index 
@@ -44,7 +54,10 @@ class Intercity_services():
         deposit(self.national_id, price) 
         return
     
-    def registeration(self): 
+    def registeration(self) -> None:
+        """registeration method of Intercity_services registers a new service for the called Intercity_services.
+
+        """
         type = inp(
                 f'{" - ".join(self["types"])}\nEnter your vehicle type between these items: ',
                 "Please enter correctly: ",
