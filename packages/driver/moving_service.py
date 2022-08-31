@@ -13,7 +13,7 @@ class Intercity_services():
     Intercity_services can 'register vehicle' to the database and then thier vehicle may be 'reserved' as a service to many tourists.
     """
 
-    types = ['Bus', 'Train', 'Plane', 'van','Car']
+    types = ['Bus', 'Train', 'Plane', 'Van','Car']
     def __init__(
         self, username: str, password: str, first_name: str, last_name: str,national_id: str, tel: str, **kwargs
     ) -> None: 

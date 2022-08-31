@@ -1,4 +1,5 @@
 import pandas as pd
+from loguru import logger
 
 def login(inputs):
     """login checks inputed username and password based on inputed type and if existed, returns the respossible object.
@@ -18,8 +19,10 @@ def login(inputs):
                 user = users.iloc[i].to_dict()
                 break
             else: raise Exception()
-        except Exception as e:
-            print("***************\nWrong username and password. Please try again.\n***************\n")
+        except Exception:
+            logger.info(
+                "***********************************************\nWrong username and password. Please try again.\n***********************************************\n"
+            )
             return False
     if inputs['type'] == 'tourist':
         from packages.tourist.Class import Tourist

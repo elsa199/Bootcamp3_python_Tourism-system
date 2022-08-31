@@ -6,6 +6,7 @@ from packages.tourist.functions import  gimmedates
 from packages.common.input import inp
 from packages.Bank.transaction import withdraw, deposit
 from packages.common.calculation import calc_arrive_date
+from loguru import logger
 
 def request_transition(tourist_nid: str, start_city: str, destination_city: str, no_passengers: int, start_dates: np.ndarray, destination_dates: np.ndarray, new_services: pd.DataFrame,  total_price: float) -> list:
     """request_transition requests a transition based on start and destination city and number of passengers.
@@ -25,7 +26,9 @@ def request_transition(tourist_nid: str, start_city: str, destination_city: str,
         In case the tourist cancels the request it returns status 400 and the rest of the list.
     """
     while True:
-        print(f"\n*** Search for transition services for you from {start_city} to {destination_city}.***\n")
+        print()
+        logger.info("Search for transition services for you ...")
+        print(f"\n*** from {start_city} to {destination_city} :***\n")
         start_date = gimmedates(start_city, destination_dates) # date of Leaving start_city
         status, service_id, service_type, destination_date, price = vehicle_search(tourist_nid, start_city, destination_city, no_passengers, start_date)
         if status == 300:
@@ -70,7 +73,7 @@ def vehicle_search(tourist_nid:str, start_city:str, end_city:int,  number: int, 
     vehicles.drop(vehicles[vehicles['capacity'] == '0'].index, inplace=True)
     vehicles.drop(vehicles[[float(el) <= mktime(localtime()) for el in vehicles.start_datatime]].index, inplace=True)
     vehicles.to_csv('./data/vehicles.csv', index=False)
-    print(vehicles.starting_city)
+
     
     local_s_datatime = localtime(s_datatime)
     
@@ -147,7 +150,7 @@ def vehicle_search(tourist_nid:str, start_city:str, end_city:int,  number: int, 
         return [200, id, fit_vehicles[fit_vehicles.id == id].type[0], destination_date, price]
     else:
         id = inp(
-            "\n***There wasn't any fit service for you***\n- To change the dates you entered type 'change'\n- To cancel the travel type 'cancel'\n- To skip this step enter 'skip'",
+            "\n***There wasn't any fit service for you***\n- To change the dates you entered type 'change'\n- To cancel the travel type 'cancel'\n- To skip this step enter 'skip'\n",
             "Invalid input. Enter again: ",
             key = lambda el: el.lower() in ['cancel', 'change', 'skip']
         )

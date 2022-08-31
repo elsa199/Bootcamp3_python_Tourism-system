@@ -1,5 +1,6 @@
 from packages.common.input import inp
 from packages.common.clear import clear_console
+from loguru import logger
 
 def main(commands: list, moving_service):
     """main function is the route of Intercity_services APIs.
@@ -15,7 +16,8 @@ def main(commands: list, moving_service):
     relogin = False
     while not relogin:
         clear_console()
-        print("Wellcome... What's your command? :)")
+        logger.success("Wellcome...")
+        logger.info("What's your command? :)")
         command = inp('***\n' + '\n'.join(['You can write these commands: '] + commands[0]) + '\n***\n', '\t\t***Wrong Command***\n', key = [lambda el: el in commands[0]])
         if command == 'register vehicle':
             moving_service.registeration()

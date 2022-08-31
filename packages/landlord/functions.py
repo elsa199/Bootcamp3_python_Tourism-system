@@ -133,7 +133,7 @@ def residence_search(tourist_nid:str, city:str, duration:int, no_passengers:int)
         return [200, id, fit_residences[fit_residences.id == id].type[0], price]
     else:
         id = inp(
-            "\n***There wasn't any fit service for you***\n- To change the dates you entered type 'change'\n- To cancel the travel type 'cancel'\n- To skip this step enter 'skip'",
+            "\n***There wasn't any fit service for you***\n- To change the dates you entered type 'change'\n- To cancel the travel type 'cancel'\n- To skip this step enter 'skip'\n",
             "Invalid input. Enter again: ",
             key = lambda el: el.lower() in ['cancel', 'change', 'skip']
         )

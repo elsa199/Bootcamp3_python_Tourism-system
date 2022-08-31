@@ -1,6 +1,7 @@
 import sys
 
 from packages.common.clear import clear_console
+from loguru import logger
 
 def __inputDeco(inpFunc):
     """__inputDeco Re-creates an input function with new abilities.
@@ -10,7 +11,7 @@ def __inputDeco(inpFunc):
     Args:
         inpFunc (function): takes the original input function.
     """
-    def newFunc(prompt:str = "Please enter your input: ", reprompr:str = "Please enter a valid input: ", **kwarg: dict):
+    def newFunc(prompt:str = "Please enter your input: ", reprompr:str = " ", **kwarg: dict):
         """newFunc is a new input function.
 
         _extended_summary_
@@ -72,6 +73,8 @@ def __inputDeco(inpFunc):
                     raise Exception("Error in using inp function.")
         while not bool(out) or check:
             try:
+                logger.warning("Watch out! You have entered the wrong phrase")
+                logger.info("Pick correctly")
                 out = inpFunc(reprompr)  # First time taking input
             except KeyboardInterrupt:
                 clear_console(0)

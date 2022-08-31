@@ -1,3 +1,4 @@
 id,moving_service_id,type,capacity,starting_city,destination_city,start_datatime,rent,avg_speed,score,num_score
 Maj,9696969696,Bus,44,Isfahan,Chaloos,1663158600.0,250000,100,None,0
 xtO,7896547896,Won,9,Brojerd,Zahedan,1662115800.0,40000,80,None,0
+C70,1356723975,Van,12,Yazd,Hamedan,1665380400.0,200000,100,None,0

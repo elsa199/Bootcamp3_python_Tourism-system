@@ -54,7 +54,7 @@ def __checker():
 
 
 def __must():
-    t = inp('Which one are you (tourist - admin - landlord - driver) or type "register"? please: ', 'Pick correctly: ',
+    t = inp('Which one are you (tourist - admin - landlord - driver) or type "register"? please: ', ' : ',
         key = lambda x: x in ['tourist', 'admin', 'landlord', 'driver', 'register'])
     if t == 'register':
         temp = __register()
