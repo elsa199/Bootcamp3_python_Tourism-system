@@ -16,7 +16,7 @@ def withdraw(id: str, price: float) -> None:
         accounts.loc[accounts[accounts['owner_id'] == id].index[0], 'deposit'])
     if balance >= price:
         balance -= price
-        accounts.loc[(accounts['owner_id'] == id), 'deposit'] = balance
+        accounts.loc[(accounts['owner_id'] == id).index[0], 'deposit'] = balance
         accounts.to_csv('./data/accounts.csv', index=False)
     else:
         raise Exception('Not enough balance.')

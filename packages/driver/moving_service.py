@@ -51,7 +51,7 @@ class Intercity_services():
         rent = float(vehicles.iloc[i[0], vehicles.columns.get_loc('rent')])
         price = rent * num
 
-        deposit(self.national_id, price) 
+        deposit(self['national_id'], price) 
         return
     
     def registeration(self) -> None:

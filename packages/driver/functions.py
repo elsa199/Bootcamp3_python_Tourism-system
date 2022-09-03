@@ -1,3 +1,4 @@
+from operator import index
 import numpy as np
 import pandas as pd
 from time import mktime, localtime, sleep
@@ -106,19 +107,22 @@ def vehicle_search(tourist_nid:str, start_city:str, end_city:int,  number: int, 
             )
             if confirm == 'change': return [300, 0, 0, 0, 0]
             elif confirm == 'cancel': return [400, 0, 0, 0, 0]
-            price = float(fit_vehicles[fit_vehicles.id == id].rent[0]) * number
-            fit_moving_service_id = fit_vehicles[fit_vehicles.id == id].moving_service_id[0]
+            price = float(fit_vehicles[fit_vehicles.id == id].rent.to_string(index=False)) * number
+            fit_moving_service_id = fit_vehicles[fit_vehicles.id == id].moving_service_id.to_string(index=False)
         
         moving_services = pd.read_csv('./data/drivers.csv', dtype=str)
         fit_moving_service_data = moving_services[moving_services.national_id == fit_moving_service_id]
 
         from packages.driver.moving_service import Intercity_services
-        fit_moving_service = Intercity_services(fit_moving_service_data.username[0], fit_moving_service_data.password[0], fit_moving_service_data.first_name[0],
-                                           fit_moving_service_data.last_name[0], fit_moving_service_data.national_id[0], fit_moving_service_data.tel[0])
+        fit_moving_service = Intercity_services(fit_moving_service_data.username.to_string(index=False),
+                                                fit_moving_service_data.password.to_string(index=False),
+                                                fit_moving_service_data.first_name.to_string(index=False),
+                                                fit_moving_service_data.last_name.to_string(index=False),
+                                                fit_moving_service_data.national_id.to_string(index=False),
+                                                fit_moving_service_data.tel.to_string(index=False))
         while True:
             try:
                 print(id)
-                print('num', number, type(number))
                 withdraw(tourist_nid, price)
                 fit_moving_service.reservation(id, number)
                 break
