@@ -51,16 +51,16 @@ class Tourist():
             return False
 
     def show_services(self):
-        services = pd.read_csv('.data/services.csv', dtype=str)
-        active_services = pd.read_csv('.data/active_services.csv')
+        services = pd.read_csv('./data/services.csv', dtype=str)
+        active_services = pd.read_csv('./data/active_services.csv')
         all_services = pd.concat([services, active_services], axis = 0, ignore_index=True)
         fit_all_service = all_services.loc[(all_services["tourist_nid"] == self['national_id'])]
         print("All the services you have used so far:")
 
         for _, row in fit_all_service.iterrows():
-                print(f'{row.type}:({row.service}) in date: {time.asctime(time.localtime(int(row.start)))} till {time.asctime(time.localtime(int(row.end)))}.')
+                print(f'{row.type}:({row.service}) in date: {strftime("%Y-%m-%d %H:%M", localtime(int(row.start)))} till {strftime("%Y-%m-%d %H:%M", localtime(int(row.end)))}.')
                 print("........................................................................")
-
+        inp('Enter "ok" to continue.', 'Enter "ok": ', convert = lambda el: el.lower(), key = lambda el: el == 'ok')
 
 
         # --------------------------------------------------------------------------------------
@@ -129,6 +129,10 @@ class Tourist():
             key=lambda L: True if sum([1 if el != start and el > 0 and el <= len(cities) else 0 for el in L]) == len(L) else False
         )
         trip, best_distance = ga(cities, distances, trip, start)
+        clear_console(False)
+        print("\t\t-=-=-= The best route to your travel is as below =-=-=-\n\n")
+        print('\t\t', *trip, '', sep=' - ')
+        sleep(7)
         clear_console()
         no_passengers = inp(
             'How many passenger are you (or you can type "cancel")? ', 'Enter a positive number: ',
@@ -155,6 +159,10 @@ class Tourist():
                     )
                     if status == 400: return False
                 if i > 0:
+                    if i ==  len(trip) - 1:
+                        start_date = gimmedates(trip[i], destination_dates) # date of Leaving start_city
+                        start_dates = np.append(start_dates, start_date)
+
                     status, new_services, total_price = request_residence(
                         self['national_id'], trip[i], destination_dates[i-1], start_dates[i], no_passengers, total_price, new_services
                     )

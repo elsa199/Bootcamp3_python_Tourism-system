@@ -28,7 +28,6 @@ class Landlord():
             residence_id (str): id of specified service
             duration (int): number of days that tourists are staying
         """
-        
         residences = pd.read_csv('./data/residences.csv', dtype=str)
         i = residences[residences.id == residence_id].index
 

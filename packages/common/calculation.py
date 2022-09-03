@@ -45,6 +45,6 @@ def calc_arrive_date(starting_city,destination_city,start_datatime,avg_speed):
         start_index = cities[cities[0] == starting_city].index[0]
         destination_index = cities[cities[0] == destination_city].index[0]
         distance = distances[start_index][destination_index]
-        duration = distance * avg_speed
-        destination_date = start_datatime + duration * 60 * 60
+        duration = float(distance) / float(avg_speed)
+        destination_date = float(start_datatime) + duration * 60 * 60
         return destination_date

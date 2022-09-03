@@ -1,5 +1,5 @@
 id,moving_service_id,type,capacity,starting_city,destination_city,start_datatime,rent,avg_speed,score,num_score
-Maj,9696969696,Bus,44,Isfahan,Chaloos,1663158600.0,250000,100,None,0
+Maj,9696969696,Bus,39,Isfahan,Chaloos,1663158600.0,250000,100,None,0
 C70,1356723975,Van,8,Yazd,Hamedan,1665380400.0,200000,100,None,0
 jWJ,1130303030,Bus,40,Isfahan,Mashhad,1664609400.0,100000,60,None,0
 6o2,1130303030,Car,4,Tehran,Chaloos,1663677000.0,100000,80,None,0
