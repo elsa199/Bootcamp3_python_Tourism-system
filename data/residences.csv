@@ -1,5 +1,5 @@
 id,landlord_id,type,address,capacity,rent,reserved,score,no_scores
-sad,0123456789,Hotel,Tehran,10,1000,0,None,0
+sad,0123456789,Hotel,Tehran,10,1000,1,None,0
 8lI,3252354223,Hotel,Shiraz,30,300000,0,None,0
 jis,3252354223,Room,Isfahan,2,300000,0,None,0
 pPS,3252354223,Villa,Gheshm,10,1000000,0,None,0

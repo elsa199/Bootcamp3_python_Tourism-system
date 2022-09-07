@@ -74,7 +74,7 @@ def residence_search(tourist_nid:str, city:str, duration:int, no_passengers:int)
     # ]
     
     # fit_residences = residences.loc[(residences['address']== city) & (residences['reserved']== 0) & (residences['capacity'] >= no_passengers)]
-    fit_residences = residences.loc[(residences['address']== city) & (residences['reserved']== 0) & (pd.to_numeric(residences.capacity, errors='coerce').fillna(0).astype(np.int64))]
+    fit_residences = residences.loc[(residences['address']== city) & (residences['reserved']== '0') & (pd.to_numeric(residences.capacity, errors='coerce').fillna(0).astype(np.int64) > no_passengers)]
 
     if fit_residences.size:
         ids = []

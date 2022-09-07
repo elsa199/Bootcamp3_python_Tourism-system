@@ -1,7 +1,7 @@
 import os
 import sys
 
-def clear_console(flag: bool = 1)->None:
+def clear_console(flag: bool = True)->None:
     """clear_console clears the console with respect to the 'os' of running machine.
 
     Args:
