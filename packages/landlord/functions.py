@@ -98,14 +98,19 @@ def residence_search(tourist_nid:str, city:str, duration:int, no_passengers:int)
             )
             if confirm == 'change': return [300, 0, 0, 0]
             elif confirm == 'cancel': return [400, 0, 0, 0]
-            price = float(fit_residences[fit_residences.id == id].rent[0]) * duration
-            fit_landlord_id = fit_residences[fit_residences.id == id].landlord_id[0]
+            price = float(fit_residences[fit_residences.id == id].rent.to_string(index=False)) * duration
+            fit_landlord_id = fit_residences[fit_residences.id == id].landlord_id.to_string(index=False)
         
         landlords = pd.read_csv('./data/landlords.csv', dtype=str)
         fit_landlord_data = landlords[landlords.national_id == fit_landlord_id]
 
         from packages.landlord.Landlord import Landlord
-        fit_landlord = Landlord(fit_landlord_data.username[0],fit_landlord_data.password[0], fit_landlord_data.first_name[0],fit_landlord_data.last_name[0],fit_landlord_data.national_id[0],fit_landlord_data.tel[0])
+        fit_landlord = Landlord(fit_landlord_data.username.to_string(index=False),
+                                fit_landlord_data.password.to_string(index=False),
+                                fit_landlord_data.first_name.to_string(index=False),
+                                fit_landlord_data.last_name.to_string(index=False),
+                                fit_landlord_data.national_id.to_string(index=False),
+                                fit_landlord_data.tel.to_string(index=False))
         while True:
             try:
                 withdraw(tourist_nid, price)
@@ -130,7 +135,7 @@ def residence_search(tourist_nid:str, city:str, duration:int, no_passengers:int)
                 if what_to_do == 'change': return [300, 0, 0, 0]
                 elif what_to_do == 'cancel': return [400, 0, 0, 0]
         
-        return [200, id, fit_residences[fit_residences.id == id].type[0], price]
+        return [200, id, fit_residences[fit_residences.id == id].type.to_string(index=False), price]
     else:
         id = inp(
             "\n***There wasn't any fit service for you***\n- To change the dates you entered type 'change'\n- To cancel the travel type 'cancel'\n- To skip this step enter 'skip'\n",

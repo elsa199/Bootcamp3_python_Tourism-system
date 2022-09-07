@@ -36,7 +36,7 @@ def request_transition(tourist_nid: str, start_city: str, destination_city: str,
                 [['id',tourist_nid,service_id,service_type,'ride',start_city, destination_city,start_date,destination_date,price]],
                 columns=['id','tourist_nid','service_id','type','service','starting_city','destination_city','start','end','price']
                 )
-                
+
         if status == 300:
             clear_console()
             continue
@@ -151,12 +151,12 @@ def vehicle_search(tourist_nid:str, start_city:str, end_city:int,  number: int, 
                 elif what_to_do == 'cancel': return [400, 0, 0, 0, 0]
 
         destination_date = calc_arrive_date(
-            fit_vehicles[fit_vehicles.id == id].starting_city[0],
-            fit_vehicles[fit_vehicles.id == id].destination_city[0],
-            fit_vehicles[fit_vehicles.id == id].start_datatime[0],
-            fit_vehicles[fit_vehicles.id == id].avg_speed[0]
+            fit_vehicles[fit_vehicles.id == id].starting_city.to_string(index=False),
+            fit_vehicles[fit_vehicles.id == id].destination_city.to_string(index=False),
+            fit_vehicles[fit_vehicles.id == id].start_datatime.to_string(index=False),
+            fit_vehicles[fit_vehicles.id == id].avg_speed.to_string(index=False)
         )
-        return [200, id, fit_vehicles[fit_vehicles.id == id].type[0], destination_date, price]
+        return [200, id, fit_vehicles[fit_vehicles.id == id].type.to_string(index=False), destination_date, price]
     else:
         id = inp(
             "\n***There wasn't any fit service for you***\n- To change the dates you entered type 'change'\n- To cancel the travel type 'cancel'\n- To skip this step enter 'skip'\n",
