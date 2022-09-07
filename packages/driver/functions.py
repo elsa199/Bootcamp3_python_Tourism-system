@@ -32,6 +32,11 @@ def request_transition(tourist_nid: str, start_city: str, destination_city: str,
         print(f"\n*** from {start_city} to {destination_city} :***\n")
         start_date = gimmedates(start_city, destination_dates) # date of Leaving start_city
         status, service_id, service_type, destination_date, price = vehicle_search(tourist_nid, start_city, destination_city, no_passengers, start_date)
+        new_service = pd.DataFrame(
+                [['id',tourist_nid,service_id,service_type,'ride',start_city, destination_city,start_date,destination_date,price]],
+                columns=['id','tourist_nid','service_id','type','service','starting_city','destination_city','start','end','price']
+                )
+                
         if status == 300:
             clear_console()
             continue
@@ -42,10 +47,10 @@ def request_transition(tourist_nid: str, start_city: str, destination_city: str,
             start_dates = np.append(start_dates, start_date)
             destination_dates = np.append(destination_dates, destination_date)
             # Write services to active service file
-            new_service = pd.DataFrame(
-                [['id',tourist_nid,service_id,service_type,'ride',start_city, destination_city,start_date,destination_date,price]],
-                columns=['id','tourist_nid','service_id','type','service','starting_city','destination_city','start','end','price']
-                )
+            # new_service = pd.DataFrame(
+            #     [['id',tourist_nid,service_id,service_type,'ride',start_city, destination_city,start_date,destination_date,price]],
+            #     columns=['id','tourist_nid','service_id','type','service','starting_city','destination_city','start','end','price']
+            #     )
             new_services = pd.concat([new_services, new_service], axis = 0, ignore_index=True)
             total_price += price
             clear_console()
